@@ -1,0 +1,11 @@
+let E = 1000000000000000
+let v = 5
+var text = ''
+@chouYen(n) {
+  return n * E
+}
+var r = null
+r = chouYen(v)
+r = r / (E / 1000)
+text = '欲しい！'
+print(`{r}兆円{Str:lf}{text}`)

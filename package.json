@@ -1,0 +1,22 @@
+{
+  "name": "@slofp/aijs",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "cd test && node index.js",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "meriyah": "^4.3.8"
+  }
+}
