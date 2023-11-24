@@ -1,11 +1,21 @@
-let E = 1000000000000000
-let v = 5
-var text = ''
-@chouYen(n) {
-  return n * E
+@hoshii() {
+  return '5000兆円欲しい！'
 }
-var r = null
-r = chouYen(v)
-r = r / (E / 1000)
-text = '欲しい！'
-print(`{r}兆円{Str:lf}{text}`)
+eval {
+  var i = 10
+  loop {
+    if (i > 0) {
+      if (i % 2 == 0) {
+        print(`にゃー{i}`)
+      }
+      else {
+        print(hoshii())
+        if (i % 3 == 0) {
+          print('にゅん')
+        }
+      }
+    }
+    else break
+    i -= 1
+  }
+}

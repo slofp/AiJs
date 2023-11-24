@@ -1,12 +1,15 @@
-const E = 1e+15, v = 5;
-var text = '';
-
-function chouYen(n) {
-	return n * E;
+function hoshii() {
+	return '5000兆円欲しい！';
 }
 
-let r;
-r = chouYen(v)
-r /= E / 1000
-text = '欲しい！';
-print(`${r}兆円\n${text}`);
+for (let i = 10; i > 0; i -= 1) {
+	if (i % 2 === 0) {
+		print(`にゃー${i}`)
+	}
+	else {
+		print(hoshii())
+		if (i % 3 === 0) {
+			print('にゅん')
+		}
+	}
+}
