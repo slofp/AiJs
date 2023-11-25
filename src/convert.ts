@@ -18,6 +18,7 @@ import { ConvertTemplateLiteral } from './converts/expressions/ConvertTemplateLi
 import { ConvertLogicalExpression } from "./converts/expressions/ConvertLogicalExpression";
 import { ConvertIfStatement } from "./converts/statements/ConvertIfStatement";
 import { ConvertForStatement } from './converts/statements/ConvertForStatement';
+import { ConvertUpdateExpression } from "./converts/expressions/ConvertUpdateExpression";
 
 export function convertStatements(state: Statement, isEval = true): ConvertStatement<any> {
 	if (checkUnsupportedStatement(state.type)) {
@@ -40,7 +41,7 @@ export function convertStatements(state: Statement, isEval = true): ConvertState
 		case 'ForStatement':
 			return new ConvertForStatement(state);
 		default:
-			throw new Error("未実装");
+			throw new Error(`${state.type}は未実装です`);
 	}
 }
 
@@ -63,8 +64,10 @@ export function convertExpressions(expr: Expression, fromState = false): Convert
 			return new ConvertTemplateLiteral(expr);
 		case 'LogicalExpression':
 			return new ConvertLogicalExpression(expr);
+		case 'UpdateExpression':
+			return new ConvertUpdateExpression(expr, fromState);
 		default:
-			throw new Error("未実装");
+			throw new Error(`${expr.type}は未実装です`);
 	}
 }
 
