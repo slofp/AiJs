@@ -1,6 +1,10 @@
-@i(){return '5000兆円欲しい！'}
-eval{var n=10
-loop{if (n>0) {if (n%2==0) {<:`にゃー{n}`} else{<:i()
-if (n%3==0) {<:'にゅん'}}}
-else break
-n-=1}}
+var name = ''
+Ui:render([Ui:C:textInput({
+  label: 'Your name',
+  onInput: @(v) {
+    name = v
+  }
+}), Ui:C:button({
+  text: 'Hello',
+  onClick: @() { Mk:dialog(null, `Hello, {name}!`) }
+})])

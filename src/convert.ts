@@ -19,6 +19,11 @@ import { ConvertLogicalExpression } from "./converts/expressions/ConvertLogicalE
 import { ConvertIfStatement } from "./converts/statements/ConvertIfStatement";
 import { ConvertForStatement } from './converts/statements/ConvertForStatement';
 import { ConvertUpdateExpression } from "./converts/expressions/ConvertUpdateExpression";
+import { ConvertMemberExpression } from "./converts/expressions/ConvertMemberExpression";
+import { ConvertArrayExpression } from "./converts/expressions/ConvertArrayExpression";
+import { ConvertObjectExpression } from "./converts/expressions/ConvertObjectExpression";
+import { ConvertFunctionExpression } from "./converts/expressions/ConvertFunctionExpression";
+import { ConvertArrowFunctionExpression } from "./converts/expressions/ConvertArrowFunctionExpression";
 
 export function convertStatements(state: Statement, isEval = true): ConvertStatement<any> {
 	if (checkUnsupportedStatement(state.type)) {
@@ -66,6 +71,16 @@ export function convertExpressions(expr: Expression, fromState = false): Convert
 			return new ConvertLogicalExpression(expr);
 		case 'UpdateExpression':
 			return new ConvertUpdateExpression(expr, fromState);
+		case 'MemberExpression':
+			return new ConvertMemberExpression(expr);
+		case 'ArrayExpression':
+			return new ConvertArrayExpression(expr);
+		case 'ObjectExpression':
+			return new ConvertObjectExpression(expr);
+		case 'FunctionExpression':
+			return new ConvertFunctionExpression(expr);
+		case 'ArrowFunctionExpression':
+			return new ConvertArrowFunctionExpression(expr);
 		default:
 			throw new Error(`${expr.type}は未実装です`);
 	}

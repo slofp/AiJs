@@ -7,11 +7,7 @@ export class ConvertCallExpression extends ConvertExpression<CallExpression> {
 
 	private convertCallee(): string {
 		// calleeには何が来るかわからないので順次どうにかする必要がある
-		// TODO: 通常変数以外も対応させる
-		if (this.expr.callee.type !== 'Identifier') {
-			throw new Error('未実装の関数呼出');
-		}
-		return this.expr.callee.name;
+		return convertExpressions(this.expr.callee).convert();
 	}
 
 	public convert(): string {

@@ -1,0 +1,2 @@
+var l=''
+Ui:render([Ui:C:textInput({label: 'Your name',onInput: @(e){l=e}}),Ui:C:button({text: 'Hello',onClick: @(){Mk:dialog(null,`Hello, {l}!`)}})])

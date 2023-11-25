@@ -1,15 +1,14 @@
-function hoshii() {
-	return '5000兆円欲しい！';
-}
+let name = "";
 
-for (let i = 10; i > 0; i -= 1) {
-	if (i % 2 === 0) {
-		print(`にゃー${i}`)
-	}
-	else {
-		print(hoshii())
-		if (i % 3 === 0) {
-			print('にゅん')
+Ui.render([
+	Ui.C.textInput({
+		label: "Your name",
+		onInput(v) {
+			name = v;
 		}
-	}
-}
+	}),
+	Ui.C.button({
+		text: "Hello",
+		onClick: () => Mk.dialog(null, `Hello, ${name}!`)
+	})
+]);
