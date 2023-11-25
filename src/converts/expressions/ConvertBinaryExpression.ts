@@ -41,6 +41,27 @@ type binaryExpression = BinaryExpression & {
 };
 
 export class ConvertBinaryExpression extends ConvertExpression<binaryExpression> {
+	private static getOperatorPrecedence(op: binaryExpression['operator']) {
+		switch (op) {
+			case '**':
+				return 4;
+			case '*':
+			case '/':
+			case '%':
+				return 3;
+			case '+':
+			case '-':
+				return 2;
+			case '<':
+			case '>':
+			case '<=':
+			case '>=':
+				return 1;
+			default:
+				return 0;
+		}
+	}
+
 	private static checkOperator(expr: BinaryExpression): boolean {
 		return binaryOperator.some(v => v === expr.operator);
 	}
@@ -59,6 +80,26 @@ export class ConvertBinaryExpression extends ConvertExpression<binaryExpression>
 		super(expr);
 	}
 
+	private requireBracket() {
+		const result = {
+			left: false,
+			right: false
+		};
+		const thisOpP = ConvertBinaryExpression.getOperatorPrecedence(this.expr.operator);
+		if (this.expr.left.type === 'BinaryExpression') {
+			result.left = thisOpP > ConvertBinaryExpression.getOperatorPrecedence(new ConvertBinaryExpression(this.expr.left).expr.operator);
+		}
+		if (this.expr.right.type === 'BinaryExpression') {
+			result.right = thisOpP > ConvertBinaryExpression.getOperatorPrecedence(new ConvertBinaryExpression(this.expr.right).expr.operator);
+		}
+
+		return result;
+	}
+
+	private addBracketIfRequire(expr: string, isRequire: boolean) {
+		return isRequire ? `(${expr})` : expr;
+	}
+
 	private toAiScript(left: string, right: string) {
 		let op = this.expr.operator;
 		if (op === '!==') {
@@ -68,11 +109,13 @@ export class ConvertBinaryExpression extends ConvertExpression<binaryExpression>
 			op = '==';
 		}
 
+		const bracket = this.requireBracket();
+
 		switch (op) {
 			case '**':
 				return toMathPow(left, right);
 			default:
-				return `${left}${optionalWhiteSpace()}${op}${optionalWhiteSpace()}${right}`;
+				return `${this.addBracketIfRequire(left, bracket.left)}${optionalWhiteSpace()}${op}${optionalWhiteSpace()}${this.addBracketIfRequire(right, bracket.right)}`;
 		}
 	}
 
