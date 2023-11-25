@@ -1,3 +1,3 @@
 export type ConvertOptions = {
-	compress?: boolean;
+	minify?: boolean;
 };

@@ -3,6 +3,7 @@ import { ConvertExpression } from "./ConvertExpression";
 import { convertExpressions } from '../../convert';
 import { UnsupportedOperatorError } from "../../expections/UnsupportedOperatorError";
 import { toMathPow } from "../../utils/mathLib";
+import { optionalWhiteSpace } from "../../utils/indent";
 
 const assignOperator = [
 	'=',
@@ -57,16 +58,16 @@ export class ConvertAssignmentExpression extends ConvertExpression<assignmentExp
 	private toAiScript(left: string, right: string) {
 		switch (this.expr.operator) {
 			case '**=':
-				return `${left} = ${toMathPow(left, right)}`;
+				return `${left}${optionalWhiteSpace()}=${optionalWhiteSpace()}${toMathPow(left, right)}`;
 			case '%=':
 			case '&&=':
 			case '*=':
 			case '/=':
 			case '||=':
 				// TODO: 計算や比較を使用しないものは括弧をなくす
-				return `${left} = ${left} ${this.expr.operator.replace('=', '')} (${right})`;
+				return `${left}${optionalWhiteSpace()}=${optionalWhiteSpace()}${left}${optionalWhiteSpace()}${this.expr.operator.replace('=', '')}${optionalWhiteSpace()}(${right})`;
 			default:
-				return `${left} ${this.expr.operator} ${right}`;
+				return `${left}${optionalWhiteSpace()}${this.expr.operator}${optionalWhiteSpace()}${right}`;
 		}
 	}
 

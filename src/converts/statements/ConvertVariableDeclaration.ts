@@ -1,6 +1,7 @@
 import { VariableDeclaration, VariableDeclarator } from "meriyah/dist/src/estree";
 import { ConvertStatement } from "./ConvertStatement";
 import { convertExpressions } from "../../convert";
+import { optionalWhiteSpace } from "../../utils/indent";
 
 type Id = {
 	type: "Normal" | "Arr" | "Obj";
@@ -13,11 +14,8 @@ export class ConvertVariableDeclaration extends ConvertStatement<VariableDeclara
 	}
 
 	private toAiscript(name: string, expr: string) {
-		if (this.isMut()) {
-			return `let ${name} = ${expr}`;
-		} else {
-			return `var ${name} = ${expr}`;
-		}
+		let result = this.isMut() ? 'let' : 'var';
+		return result + ` ${name}${optionalWhiteSpace()}=${optionalWhiteSpace()}${expr}`;
 	}
 
 	private idConvert(id: VariableDeclarator["id"]): Id {

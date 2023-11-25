@@ -1,6 +1,7 @@
 import { IfStatement, Statement } from "meriyah/dist/src/estree";
 import { ConvertStatement } from "./ConvertStatement";
 import { convertExpressions, convertStatements } from "../../convert";
+import { insertNewLine, optionalWhiteSpace } from "../../utils/indent";
 
 export class ConvertIfStatement extends ConvertStatement<IfStatement> {
 
@@ -13,13 +14,19 @@ export class ConvertIfStatement extends ConvertStatement<IfStatement> {
 	}
 
 	private toAiScript(test: string, then: string, alterIsElif: boolean, alter?: string): string {
-		let result = this.isElif ? 'elif' : 'if';
-		result += ` (${test}) `;
+		let result = this.isElif ? `elif${optionalWhiteSpace()}` : 'if ';
+		result += `(${test})${this.isElif ? optionalWhiteSpace() : ' '}`;
 		result += then;
 		if (alter) {
-			result += '\n';
+			result += insertNewLine ? '\n' : ' ';
 			if (!alterIsElif) {
-				result += 'else ';
+				result += 'else';
+				if (this.state.alternate!.type === 'BlockStatement') {
+					result += optionalWhiteSpace();
+				}
+				else {
+					result += ' ';
+				}
 			}
 			result += alter;
 		}

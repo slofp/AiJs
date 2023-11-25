@@ -3,6 +3,7 @@ import { ConvertExpression } from "./ConvertExpression";
 import { UnsupportedOperatorError } from "../../expections/UnsupportedOperatorError";
 import { convertExpressions } from "../../convert";
 import { toMathPow } from "../../utils/mathLib";
+import { optionalWhiteSpace } from "../../utils/indent";
 
 // && と || と ?? は Binaryではない
 const binaryOperator = [
@@ -71,7 +72,7 @@ export class ConvertBinaryExpression extends ConvertExpression<binaryExpression>
 			case '**':
 				return toMathPow(left, right);
 			default:
-				return `${left} ${op} ${right}`;
+				return `${left}${optionalWhiteSpace()}${op}${optionalWhiteSpace()}${right}`;
 		}
 	}
 

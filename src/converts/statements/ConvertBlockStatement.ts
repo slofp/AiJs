@@ -1,7 +1,7 @@
 import { BlockStatement } from "meriyah/dist/src/estree";
 import { ConvertStatement } from './ConvertStatement';
 import { convertStatements } from "../../convert";
-import { generateIndents } from "../../utils/indent";
+import { generateIndents, optionalNewLine, optionalWhiteSpace } from "../../utils/indent";
 
 export class ConvertBlockStatement extends ConvertStatement<BlockStatement> {
 
@@ -18,9 +18,9 @@ export class ConvertBlockStatement extends ConvertStatement<BlockStatement> {
 			result.push(convertStatements(state));
 		}
 
-		const resultText = `{\n${result.map(v => generateIndents() + v.convert().split('\n').join('\n' + generateIndents())).join('\n')}\n}`;
+		const resultText = `{${optionalNewLine()}${result.map(v => generateIndents() + v.convert().split('\n').join('\n' + generateIndents())).join('\n')}${optionalNewLine()}}`;
 		if (this.isEval) {
-			return `eval ${resultText}`;
+			return `eval${optionalWhiteSpace()}${resultText}`;
 		}
 		else {
 			return resultText;

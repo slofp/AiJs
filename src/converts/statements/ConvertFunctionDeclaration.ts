@@ -1,6 +1,7 @@
 import { FunctionDeclaration } from "meriyah/dist/src/estree";
 import { ConvertStatement } from "./ConvertStatement";
 import { convertStatements } from "../../convert";
+import { optionalWhiteSpace } from "../../utils/indent";
 
 export class ConvertFunctionDeclaration extends ConvertStatement<FunctionDeclaration> {
 
@@ -19,8 +20,8 @@ export class ConvertFunctionDeclaration extends ConvertStatement<FunctionDeclara
 	}
 
 	private toAiScript(name: string, args: string[], body: string) {
-		const arg = args.join(', ');
-		return `@${name}(${arg}) ${body}`
+		const arg = args.join(`,${optionalWhiteSpace()}`);
+		return `@${name}(${arg})${optionalWhiteSpace()}${body}`
 	}
 
 	public convert(): string {

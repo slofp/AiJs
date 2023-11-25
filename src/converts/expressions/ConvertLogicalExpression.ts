@@ -1,6 +1,7 @@
 import { LogicalExpression } from "meriyah/dist/src/estree";
 import { ConvertExpression } from "./ConvertExpression";
 import { convertExpressions } from "../../convert";
+import { optionalWhiteSpace } from "../../utils/indent";
 
 const logicalOperator = [
 	'&&',
@@ -27,6 +28,6 @@ export class ConvertLogicalExpression extends ConvertExpression<logicalExpressio
 		const left = convertExpressions(this.expr.left).convert();
 		const right = convertExpressions(this.expr.right).convert();
 
-		return `${left} ${this.expr.operator} ${right}`;
+		return `${left}${optionalWhiteSpace()}${this.expr.operator}${optionalWhiteSpace()}${right}`;
 	}
 }

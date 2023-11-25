@@ -1,21 +1,6 @@
-@hoshii() {
-  return '5000兆円欲しい！'
-}
-eval {
-  var i = 10
-  loop {
-    if (i > 0) {
-      if (i % 2 == 0) {
-        print(`にゃー{i}`)
-      }
-      else {
-        print(hoshii())
-        if (i % 3 == 0) {
-          print('にゅん')
-        }
-      }
-    }
-    else break
-    i -= 1
-  }
-}
+@i(){return '5000兆円欲しい！'}
+eval{var n=10
+loop{if (n>0) {if (n%2==0) {<:`にゃー{n}`} else{<:i()
+if (n%3==0) {<:'にゅん'}}}
+else break
+n-=1}}

@@ -3,7 +3,7 @@ import { ConvertStatement } from "./ConvertStatement";
 import { existsVariable } from "../../utils/exists";
 import { convertExpressions, convertStatements } from "../../convert";
 import { INode } from "../INode";
-import { nestIndents } from '../../utils/indent';
+import { nestIndents, optionalNewLine, optionalWhiteSpace } from '../../utils/indent';
 
 export class ConvertForStatement extends ConvertStatement<ForStatement> {
 	private checkUsingCounter(name: string) {
@@ -79,15 +79,15 @@ export class ConvertForStatement extends ConvertStatement<ForStatement> {
 
 	private toAiScriptFor(name: string, count: number, isUsing: boolean, state: string): string {
 		if (isUsing) {
-			return `for (let ${name}, ${count}) ${state}`;
+			return `for${optionalWhiteSpace()}(let ${name},${optionalWhiteSpace()}${count})${optionalWhiteSpace()}${state}`;
 		}
 		else {
-			return `for (${count}) ${state}`;
+			return `for${optionalWhiteSpace()}(${count})${optionalWhiteSpace()}${state}`;
 		}
 	}
 
 	private toAiScriptLoop(init: INode | null, test: string, state: string, update: INode | null): string {
-		let result = 'eval {\n';
+		let result = `eval${optionalWhiteSpace()}{${optionalNewLine()}`;
 		if (init !== null) {
 			result += nestIndents(init.convert()) + '\n';
 		}
@@ -96,8 +96,8 @@ export class ConvertForStatement extends ConvertStatement<ForStatement> {
 			loop.push(update.convert());
 		}
 
-		result += nestIndents(['loop {', nestIndents(loop.join('\n')), '}'].join('\n'));
-		return result + '\n}';
+		result += nestIndents([`loop${optionalWhiteSpace()}{`, nestIndents(loop.join('\n')), '}'].join(optionalNewLine()));
+		return result + `${optionalNewLine()}}`;
 	}
 
 	private convertLoop(): string {
