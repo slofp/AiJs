@@ -28,6 +28,7 @@ import { ConvertWhileStatement } from "./converts/statements/ConvertWhileStateme
 import { ConvertDoWhileStatement } from './converts/statements/ConvertDoWhileStatement';
 import { ConvertBreakStatement } from "./converts/statements/ConvertBreakStatement";
 import { ConvertContinueStatement } from "./converts/statements/ConvertContinueStatement";
+import { ConvertForOfStatement } from "./converts/statements/ConvertForOfStatement";
 
 export function convertStatements(state: Statement, isEval = true): ConvertStatement<any> {
 	if (checkUnsupportedStatement(state.type)) {
@@ -57,6 +58,8 @@ export function convertStatements(state: Statement, isEval = true): ConvertState
 			return new ConvertBreakStatement(state);
 		case 'ContinueStatement':
 			return new ConvertContinueStatement(state);
+		case 'ForOfStatement':
+			return new ConvertForOfStatement(state);
 		default:
 			throw new Error(`${state.type}は未実装です`);
 	}
