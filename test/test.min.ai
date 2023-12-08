@@ -1,2 +1,4 @@
+/// @ 0.16.0
+###{name: 'ok',permissions: ['read:account','write:messaging'],config: {tests: {type: 'boolean',label: 'testaaaaaa',description: 'iuhshueshues',default: true}}}
 var l=''
 Ui:render([Ui:C:textInput({label: 'Your name',onInput: @(e){l=e}}),Ui:C:button({text: 'Hello',onClick: @(){Mk:dialog(null,`Hello, {l}!`)}})])

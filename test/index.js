@@ -6,13 +6,41 @@ import { readFile, writeFile } from 'fs/promises';
 	const result = await convert(source, {
 		insertVersion: true,
 		meta: {
-			
+			name: 'ok',
+			permissions: [
+				'read:account',
+				'write:messaging'
+			],
+			config: {
+				tests: {
+					type: 'boolean',
+					label: 'testaaaaaa',
+					description: 'iuhshueshues',
+					default: true
+				}
+			}
 		}
 	});
 	console.log(result);
 	await writeFile('./test.ai', result, 'utf8');
 	const resultMinify = await convert(source, {
-		minify: true
+		minify: true,
+		insertVersion: true,
+		meta: {
+			name: 'ok',
+			permissions: [
+				'read:account',
+				'write:messaging'
+			],
+			config: {
+				tests: {
+					type: 'boolean',
+					label: 'testaaaaaa',
+					description: 'iuhshueshues',
+					default: true
+				}
+			}
+		}
 	});
 	console.log(resultMinify);
 	await writeFile('./test.min.ai', resultMinify, 'utf8');

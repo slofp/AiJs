@@ -1,3 +1,19 @@
+/// @ 0.16.0
+### {
+  name: 'ok',
+  permissions: [
+    'read:account',
+    'write:messaging'
+  ],
+  config: {
+    tests: {
+      type: 'boolean',
+      label: 'testaaaaaa',
+      description: 'iuhshueshues',
+      default: true
+    }
+  }
+}
 var name = ''
 Ui:render([Ui:C:textInput({
   label: 'Your name',

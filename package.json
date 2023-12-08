@@ -7,7 +7,6 @@
     "dist"
   ],
   "scripts": {
-    "pretest": "cd test && pnpm install",
     "test": "cd test && node index.js",
     "build": "tsc"
   },

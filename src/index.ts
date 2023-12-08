@@ -16,9 +16,9 @@ function toStringPermissionArray(permissions: NonNullable<MetaData['permissions'
 
 function toStringConfigFieldData(data: Config) {
 	const result = [
-		`type: ${data.type}`,
-		`label: ${data.label}`,
-		`description: ${data.description}`,
+		`type: '${data.type}'`,
+		`label: '${data.label}'`,
+		`description: '${data.description}'`,
 	];
 	if (typeof data.default === 'string') {
 		result.push(`default: '${data.default}'`);
