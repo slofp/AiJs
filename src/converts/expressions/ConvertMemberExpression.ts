@@ -31,6 +31,10 @@ export class ConvertMemberExpression extends ConvertExpression<MemberExpression>
 		const obj = convertExpressions(this.expr.object).convert();
 		const prop = this.convertProp();
 
+		if (this.expr.computed) {
+			return `${obj}[${prop}]`;
+		}
+
 		if (this.checkStd()) {
 			return `${obj}:${prop}`;
 		}

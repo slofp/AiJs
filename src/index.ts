@@ -3,6 +3,7 @@ import { convertFromProgram } from './convert';
 import { Config, ConvertOptions, MetaData } from './type';
 import { minifyIdentifier } from './utils/jsMinify';
 import { nestIndents, optionalNewLine, optionalWhiteSpace, setIndents } from './utils/indent';
+import { ConvertError } from './expections/ConvertError';
 
 function toCodingAiScriptVersion() {
 	return '/// @ 0.16.0';
@@ -72,6 +73,9 @@ export async function convert(src: string, options?: ConvertOptions) {
 			source = await minifyIdentifier(source);
 			setIndents(false);
 		}
+		else {
+			setIndents(true);
+		}
 		if (options.insertVersion) {
 			result.push(toCodingAiScriptVersion());
 		}
@@ -79,8 +83,23 @@ export async function convert(src: string, options?: ConvertOptions) {
 			result.push(toCodingMetadata(options.meta));
 		}
 	}
+	else {
+		setIndents(true);
+	}
 
-	const program = parseScript(source);
-	result.push(convertFromProgram(program));
-	return result.join('\n');
+	try {
+		const program = parseScript(source);
+		result.push(convertFromProgram(program));
+		return result.join('\n');
+	}
+	catch (err) {
+		if (err && typeof err === 'object' &&
+			('line' in err && typeof err.line === 'number') &&
+			('column' in err && typeof err.column === 'number') &&
+			('description' in err && typeof err.description === 'string')
+		) {
+			throw new ConvertError(err.line, err.column, err.description);
+		}
+		throw err;
+	}
 }

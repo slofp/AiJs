@@ -50,24 +50,20 @@ export class ConvertForStatement extends ConvertStatement<ForStatement> {
 		};
 	}
 
-	private checkTestCounter(name: string): { check: boolean; value?: number } {
+	private checkTestCounter(name: string): { check: boolean; value?: string } {
 		if (this.state.test !== null && this.state.test.type === 'BinaryExpression') {
 			if (this.state.test.left.type === 'Identifier' &&
-				this.state.test.operator === '<' &&
-				this.state.test.right.type === 'Literal' &&
-				typeof this.state.test.right.value === 'number') {
+				this.state.test.operator === '<') {
 				return {
 					check: this.state.test.left.name === name,
-					value: this.state.test.right.value
+					value: convertExpressions(this.state.test.right).convert()
 				};
 			}
-			else if (this.state.test.left.type === 'Literal' &&
-				this.state.test.operator === '>' &&
-				this.state.test.right.type === 'Identifier' &&
-				typeof this.state.test.left.value === 'number') {
+			else if (this.state.test.operator === '>' &&
+				this.state.test.right.type === 'Identifier') {
 				return {
 					check: this.state.test.right.name === name,
-					value: this.state.test.left.value
+					value: convertExpressions(this.state.test.left).convert()
 				};
 			}
 		}
@@ -77,7 +73,7 @@ export class ConvertForStatement extends ConvertStatement<ForStatement> {
 		};
 	}
 
-	private toAiScriptFor(name: string, count: number, isUsing: boolean, state: string): string {
+	private toAiScriptFor(name: string, count: string, isUsing: boolean, state: string): string {
 		if (isUsing) {
 			return `for${optionalWhiteSpace()}(let ${name},${optionalWhiteSpace()}${count})${optionalWhiteSpace()}${state}`;
 		}
