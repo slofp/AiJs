@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap');
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Maven Pro', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
@@ -13,67 +15,108 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-.card {
-  padding: 2em;
+  padding: 10px;
+  width: 100vw;
+  height: 100vh;
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  height: 100%;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #666 #222;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 0px;
+  background-color: #222;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #222;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: #222;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 0px;
+  background-color: #333;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #444;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #666;
+}
+
+.editor-root {
+  width: calc(calc(100vw - 40px) / 2);
+  height: calc(calc(100% - 2em) - 0px);
+}
+
+.cm-completionIcon {
+  padding-right: 1em!important;
+  opacity: 1!important;
+  vertical-align: middle;
+}
+
+.cm-completionIcon-function:after,
+.cm-completionIcon-method:after {
+  content: url(https://raw.githubusercontent.com/microsoft/vscode-icons/main/icons/dark/symbol-method.svg)!important;
+}
+
+.cm-completionIcon-class:after {
+  content: url(https://raw.githubusercontent.com/microsoft/vscode-icons/main/icons/dark/symbol-class.svg)!important;
+}
+
+.cm-completionIcon-interface:after {
+  content: url(https://raw.githubusercontent.com/microsoft/vscode-icons/main/icons/dark/symbol-interface.svg)!important;
+}
+
+.cm-completionIcon-variable:after {
+  content: url(https://raw.githubusercontent.com/microsoft/vscode-icons/main/icons/dark/symbol-variable.svg)!important;
+}
+
+.cm-completionIcon-constant:after {
+  content: url(https://raw.githubusercontent.com/microsoft/vscode-icons/main/icons/dark/symbol-constant.svg)!important;
+}
+
+.cm-completionIcon-type:after {
+  content: url(https://raw.githubusercontent.com/microsoft/vscode-icons/main/icons/dark/symbol-class.svg)!important;
+}
+
+.cm-completionIcon-enum:after {
+  content: url(https://raw.githubusercontent.com/microsoft/vscode-icons/main/icons/dark/symbol-enum.svg)!important;
+}
+
+.cm-completionIcon-property:after {
+  content: url(https://raw.githubusercontent.com/microsoft/vscode-icons/main/icons/dark/symbol-property.svg)!important;
+}
+
+.cm-completionIcon-keyword:after {
+  content: url(https://raw.githubusercontent.com/microsoft/vscode-icons/main/icons/dark/symbol-keyword.svg)!important;
+}
+
+.cm-completionIcon-namespace:after {
+  content: url(https://raw.githubusercontent.com/microsoft/vscode-icons/main/icons/dark/symbol-namespace.svg)!important;
+}
+
+.cm-completionIcon-text:after {
+  content: url(https://raw.githubusercontent.com/microsoft/vscode-icons/main/icons/dark/symbol-key.svg)!important;
 }

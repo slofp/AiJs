@@ -17,5 +17,15 @@
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
     "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "@codemirror/autocomplete": "^6.11.1",
+    "@codemirror/lang-javascript": "^6.2.1",
+    "@codemirror/language": "^6.9.3",
+    "@codemirror/view": "^6.22.2",
+    "@slofp/aijs": "link:..",
+    "@uiw/codemirror-theme-vscode": "^4.21.21",
+    "ress": "^5.0.2",
+    "svelte-codemirror-editor": "^1.2.0"
   }
 }
