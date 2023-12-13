@@ -24,7 +24,9 @@ jobs:
           run_install: false
 
       - name: Install dependencies
-        run: pnpm install && cd web && pnpm install
+        env:
+          NODE_ENV: dev
+        run: pnpm install
 
       - name: Build
         working-directory: web
