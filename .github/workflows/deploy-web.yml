@@ -24,7 +24,7 @@ jobs:
           run_install: false
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install && cd web && pnpm install
 
       - name: Build
         working-directory: web
