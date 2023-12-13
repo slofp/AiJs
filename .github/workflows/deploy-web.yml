@@ -1,0 +1,61 @@
+name: Deploy web
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        working-directory: web
+        uses: actions/setup-node@v3
+
+      - name: Install pnpm and dependencies
+        working-directory: web
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+          run_install: true
+
+      - name: Build
+        working-directory: web
+        env:
+          IS_GITHUB_ACTION: true
+        run: pnpm build
+
+      - name: Upload dist
+        working-directory: web
+        uses: actions/upload-artifact@v3
+        with:
+          name: web-dist
+          path: ./dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    defaults:
+      run:
+        working-directory: web
+
+    steps:
+      - name: Download dist
+        uses: actions/download-artifact@v3
+        with:
+          name: web-dist
+          path: ./dist
+
+      - name: Deploy web
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
