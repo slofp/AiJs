@@ -31,6 +31,7 @@ jobs:
       - name: Build
         working-directory: web
         env:
+          NODE_ENV: dev
           IS_GITHUB_ACTION: true
         run: pnpm build
 
