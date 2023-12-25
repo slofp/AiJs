@@ -19,6 +19,12 @@ importers:
         specifier: ^5.3.2
         version: 5.3.2
 
+  test:
+    dependencies:
+      '@slofp/aijs':
+        specifier: link:..
+        version: link:..
+
   web:
     dependencies:
       '@codemirror/autocomplete':
@@ -66,7 +72,7 @@ importers:
         version: 5.3.2
       vite:
         specifier: ^5.0.0
-        version: 5.0.7
+        version: 5.0.7(terser@5.24.0)
 
 packages:
 
@@ -370,7 +376,6 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.20
-    dev: false
 
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
@@ -540,7 +545,7 @@ packages:
       '@sveltejs/vite-plugin-svelte': 3.0.1(svelte@4.2.8)(vite@5.0.7)
       debug: 4.3.4
       svelte: 4.2.8
-      vite: 5.0.7
+      vite: 5.0.7(terser@5.24.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -559,7 +564,7 @@ packages:
       magic-string: 0.30.5
       svelte: 4.2.8
       svelte-hmr: 0.15.3(svelte@4.2.8)
-      vite: 5.0.7
+      vite: 5.0.7(terser@5.24.0)
       vitefu: 0.2.5(vite@5.0.7)
     transitivePeerDependencies:
       - supports-color
@@ -650,7 +655,6 @@ packages:
 
   /buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
-    dev: false
 
   /callsites@3.1.0:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
@@ -697,7 +701,6 @@ packages:
 
   /commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
-    dev: false
 
   /concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
@@ -1106,12 +1109,10 @@ packages:
     dependencies:
       buffer-from: 1.1.2
       source-map: 0.6.1
-    dev: false
 
   /source-map@0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
-    dev: false
 
   /strip-indent@3.0.0:
     resolution: {integrity: sha512-laJTa3Jb+VQpaC6DseHhF7dXVqHTfJPCRDaEbid/drOhgitgYku/letMUqOXFoWV0zIIUbjpdH2t+tYj4bQMRQ==}
@@ -1244,7 +1245,6 @@ packages:
       acorn: 8.11.2
       commander: 2.20.3
       source-map-support: 0.5.21
-    dev: false
 
   /to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
@@ -1263,7 +1263,7 @@ packages:
     hasBin: true
     dev: true
 
-  /vite@5.0.7:
+  /vite@5.0.7(terser@5.24.0):
     resolution: {integrity: sha512-B4T4rJCDPihrQo2B+h1MbeGL/k/GMAHzhQ8S0LjQ142s6/+l3hHTT095ORvsshj4QCkoWu3Xtmob5mazvakaOw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -1294,6 +1294,7 @@ packages:
       esbuild: 0.19.8
       postcss: 8.4.32
       rollup: 4.7.0
+      terser: 5.24.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -1306,7 +1307,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 5.0.7
+      vite: 5.0.7(terser@5.24.0)
     dev: true
 
   /w3c-keyname@2.2.8:
