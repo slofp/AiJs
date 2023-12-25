@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         env:
           NODE_ENV: dev
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build
         working-directory: web
