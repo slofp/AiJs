@@ -39,7 +39,7 @@
 
 <header>
 	<div>
-		<h1>JavaScript to AiScript Converter (ai.js v0.0.1)</h1>
+		<h1>JavaScript to AiScript Converter (ai.js v0.0.2)</h1>
 	</div>
 	<div>
 		<Button onclick={() => openOptions = !openOptions}>
