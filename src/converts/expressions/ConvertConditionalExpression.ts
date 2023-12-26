@@ -11,7 +11,7 @@ export class ConvertConditionalExpression extends ConvertExpression<ConditionalE
 
 	private toAiScript(test: string, then: string, alter: string, nextEnd: boolean) {
 		let res = '';
-		let optionRequireWhiteSpace =  this.isAlternateCondition ? '' : ' ';
+		let optionRequireWhiteSpace =  this.isAlternateCondition ? optionalWhiteSpace() : ' ';
 		if (this.isAlternateCondition) {
 			res += 'elif';
 		}
