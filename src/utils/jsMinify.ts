@@ -1,4 +1,5 @@
 import { MinifyOptions, minify } from 'terser';
+import { base53 } from './base53';
 
 const options: MinifyOptions = {
 	mangle: {
@@ -6,11 +7,11 @@ const options: MinifyOptions = {
 		keep_fnames: false,
 		toplevel: true,
 		module: true,
-
+		nth_identifier: base53,
 	},
 	compress: false,
 	keep_classnames: false,
-	keep_fnames: false
+	keep_fnames: false,
 };
 
 export async function minifyIdentifier(source: string) {
