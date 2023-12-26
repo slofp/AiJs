@@ -48,7 +48,13 @@ function existsExpressionVariable(expr: Expression, name: string): boolean {
 		case 'ArrayPattern':
 			return expr.elements.some(v => existsExpressionVariable(v, name));
 		case 'ArrowFunctionExpression':
-			return expr.expression ? existsExpressionVariable(expr.body as Expression, name) : existsVariable(expr.body as Statement, name);
+			return expr.params.some(v => {
+				if (v.type === 'AssignmentPattern') return (
+					existsExpressionVariable(v.left, name) ||
+					(v.right && existsExpressionVariable(v.right, name))
+				);
+				return existsExpressionVariable(v, name);
+			}) || expr.expression ? existsExpressionVariable(expr.body as Expression, name) : existsVariable(expr.body as Statement, name);
 		case 'AssignmentExpression':
 		case 'BinaryExpression':
 		case 'LogicalExpression':
@@ -56,7 +62,7 @@ function existsExpressionVariable(expr: Expression, name: string): boolean {
 		case 'AwaitExpression':
 			return existsExpressionVariable(expr.argument, name);
 		case 'CallExpression':
-			return expr.arguments.some(v => existsExpressionVariable(v, name));
+			return expr.arguments.some(v => existsExpressionVariable(v, name)) || existsExpressionVariable(expr.callee, name);
 		case 'ChainExpression':
 			return existsExpressionVariable(expr.expression, name);
 		case 'ClassDeclaration':
