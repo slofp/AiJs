@@ -29,6 +29,7 @@ import { ConvertDoWhileStatement } from './converts/statements/ConvertDoWhileSta
 import { ConvertBreakStatement } from "./converts/statements/ConvertBreakStatement";
 import { ConvertContinueStatement } from "./converts/statements/ConvertContinueStatement";
 import { ConvertForOfStatement } from "./converts/statements/ConvertForOfStatement";
+import { ConvertConditionalExpression } from "./converts/expressions/ConvertConditionalExpression";
 
 export function convertStatements(state: Statement, isEval = true): ConvertStatement<any> {
 	if (checkUnsupportedStatement(state.type)) {
@@ -96,6 +97,8 @@ export function convertExpressions(expr: Expression, fromState = false): Convert
 			return new ConvertFunctionExpression(expr);
 		case 'ArrowFunctionExpression':
 			return new ConvertArrowFunctionExpression(expr);
+		case 'ConditionalExpression':
+			return new ConvertConditionalExpression(expr);
 		default:
 			throw new Error(`${expr.type}は未実装です`);
 	}
