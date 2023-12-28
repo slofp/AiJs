@@ -88,7 +88,10 @@ export async function convert(src: string, options?: ConvertOptions) {
 	}
 
 	try {
-		const program = parseScript(source);
+		const program = parseScript(source, {
+			module: true,
+			next: true
+		});
 		result.push(convertFromProgram(program));
 		return result.join('\n');
 	}
