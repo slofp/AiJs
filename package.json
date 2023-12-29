@@ -10,7 +10,8 @@
     "test": "cd test && node index.js",
     "build": "tsc",
     "lint": "eslint --ext .ts,.svelte .",
-    "fix": "eslint --ext .ts,.svelte --fix ."
+    "fix": "eslint --ext .ts,.svelte --fix .",
+    "prepublish": "pnpm build"
   },
   "keywords": [],
   "author": "(Fairy)Phy.Secineralyr",
