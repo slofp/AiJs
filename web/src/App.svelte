@@ -24,7 +24,6 @@
 						config: op.meta.config,
 					},
 		};
-		console.log(checkedOptions);
 		convert(js, checkedOptions)
 			.then((src) => (resultSrc = src))
 			.catch((e) => {
@@ -43,7 +42,9 @@
 
 <header>
 	<div>
-		<h1>JavaScript to AiScript Converter (ai.js v0.0.2)</h1>
+		<!-- svelte-ignore missing-declaration -->
+		<!-- eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -->
+		<h1>JavaScript to AiScript Converter (ai.js v{VERSION})</h1>
 	</div>
 	<div>
 		<Button onclick={() => (openOptions = !openOptions)}>Options</Button>
