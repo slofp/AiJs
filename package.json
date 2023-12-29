@@ -1,7 +1,19 @@
 {
   "name": "@slofp/aijs",
-  "version": "0.0.1",
-  "description": "",
+  "description": "JavaScript to AiScript Converter",
+  "version": "0.1.0",
+  "author": "(Fairy)Phy.Secineralyr",
+  "homepage": "https://slofp.github.io/AiJs/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slofp/AiJs.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "AiScript",
+    "Converter"
+  ],
+  "license": "MIT",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -13,9 +25,6 @@
     "fix": "eslint --ext .ts,.svelte --fix .",
     "prepublish": "pnpm build"
   },
-  "keywords": [],
-  "author": "(Fairy)Phy.Secineralyr",
-  "license": "MIT",
   "devDependencies": {
     "@prettier/sync": "0.3.0",
     "@typescript-eslint/eslint-plugin": "6.16.0",
