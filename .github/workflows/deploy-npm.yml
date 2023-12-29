@@ -19,7 +19,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          registry-url: 'https://registry.npmjs.org'
+          # https://github.com/pnpm/pnpm/issues/4937#issuecomment-1646218979
+          registry-url: 'https://registry.npmjs.org/'
           always-auth: true
 
       - name: Install pnpm
