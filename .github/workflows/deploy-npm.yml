@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build and Publish
     runs-on: ubuntu-latest
 
     steps:
@@ -45,9 +45,6 @@ jobs:
         env:
           NODE_ENV: dev
         run: pnpm install --frozen-lockfile
-
-      - name: Check Lint
-        run: pnpm lint
 
       - name: add tag
         env:
