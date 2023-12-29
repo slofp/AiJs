@@ -21,6 +21,7 @@ jobs:
         with:
           registry-url: 'https://registry.npmjs.org/'
           always-auth: true
+          scope: '@slofp'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
