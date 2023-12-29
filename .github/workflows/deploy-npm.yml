@@ -54,7 +54,8 @@ jobs:
         run: ./.github/workflows/addtag.sh
 
       - name: publish
-        # 何故かpnpmでpublishできない
-        run: npm publish
+        run: |
+          pnpm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
+          pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
