@@ -54,8 +54,6 @@ jobs:
         run: ./.github/workflows/addtag.sh
 
       - name: publish
-        run: |
-          pnpm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
-          pnpm publish
+        run: pnpm publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
