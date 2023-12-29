@@ -1,7 +1,7 @@
-import { WhileStatement } from "meriyah/dist/src/estree";
-import { ConvertStatement } from "./ConvertStatement";
-import { convertExpressions, convertStatements } from "../../convert";
-import { nestIndents, optionalNewLine, optionalWhiteSpace } from "../../utils/indent";
+import { WhileStatement } from 'acorn';
+import { ConvertStatement } from './ConvertStatement';
+import { convertExpressions, convertStatements } from '../../convert';
+import { nestIndents, optionalNewLine, optionalWhiteSpace } from '../../utils/indent';
 
 export class ConvertWhileStatement extends ConvertStatement<WhileStatement> {
 	private toAiScript(test: string, body: string, isPure: boolean): string {

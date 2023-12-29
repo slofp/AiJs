@@ -1,6 +1,6 @@
-import { ContinueStatement } from "meriyah/dist/src/estree";
-import { ConvertStatement } from "./ConvertStatement";
-import { CannotConvertError } from "../../expections/CannotConvertError";
+import { ContinueStatement } from 'acorn';
+import { ConvertStatement } from './ConvertStatement';
+import { CannotConvertError } from '../../expections/CannotConvertError';
 
 export class ConvertContinueStatement extends ConvertStatement<ContinueStatement> {
 	public convert(): string {

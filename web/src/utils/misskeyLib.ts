@@ -1,7 +1,8 @@
-import { scopeCompletionSource } from "@codemirror/lang-javascript";
+import { scopeCompletionSource } from '@codemirror/lang-javascript';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 const dummyFunc = () => {};
-const dummyProp = "";
+const dummyProp = '';
 
 const Mk = {
 	dialog: dummyFunc,

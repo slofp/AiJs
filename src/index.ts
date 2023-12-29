@@ -1,4 +1,4 @@
-import { parseScript } from 'meriyah';
+import { Position, parse } from 'acorn';
 import { convertFromProgram } from './convert';
 import { Config, ConvertOptions, MetaData } from './type';
 import { minifyIdentifier } from './utils/jsMinify';
@@ -11,16 +11,12 @@ function toCodingAiScriptVersion() {
 
 function toStringPermissionArray(permissions: NonNullable<MetaData['permissions']>) {
 	const perms = new Set(permissions);
-	const result = [...perms].map(v => `'${v}'`).join(`,${optionalNewLine()}`);
+	const result = [...perms].map((v) => `'${v}'`).join(`,${optionalNewLine()}`);
 	return `[${optionalNewLine()}${nestIndents(result)}${optionalNewLine()}]`;
 }
 
 function toStringConfigFieldData(data: Config) {
-	const result = [
-		`type: '${data.type}'`,
-		`label: '${data.label}'`,
-		`description: '${data.description}'`,
-	];
+	const result = [`type: '${data.type}'`, `label: '${data.label}'`, `description: '${data.description}'`];
 	if (typeof data.default === 'string') {
 		result.push(`default: '${data.default}'`);
 	}
@@ -88,20 +84,27 @@ export async function convert(src: string, options?: ConvertOptions) {
 	}
 
 	try {
-		const program = parseScript(source, {
-			module: true,
-			next: true
+		const program = parse(source, {
+			ecmaVersion: 'latest',
+			preserveParens: true,
+			locations: true,
+			sourceType: 'module',
+			allowAwaitOutsideFunction: false,
+			allowImportExportEverywhere: false,
+			allowReserved: false,
+			allowHashBang: false,
+			allowReturnOutsideFunction: false,
+			allowSuperOutsideMethod: false,
 		});
 		result.push(convertFromProgram(program));
 		return result.join('\n');
 	}
 	catch (err) {
-		if (err && typeof err === 'object' &&
-			('line' in err && typeof err.line === 'number') &&
-			('column' in err && typeof err.column === 'number') &&
-			('description' in err && typeof err.description === 'string')
-		) {
-			throw new ConvertError(err.line, err.column, err.description);
+		if (err instanceof SyntaxError) {
+			if ('loc' in err && err.loc && typeof err.loc === 'object') {
+				throw new ConvertError(err.message, err.loc as Position);
+			}
+			throw new ConvertError(err.message);
 		}
 		throw err;
 	}

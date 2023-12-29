@@ -4,7 +4,9 @@
 // AiScript identifier cannot use $.
 
 function mergeSort<T>(array: T[], cmp: (a: T, b: T) => number) {
-	if (array.length < 2) return array.slice();
+	if (array.length < 2) {
+		return array.slice();
+	}
 	function merge(a: T[], b: T[]) {
 		var r = [],
 			ai = 0,
@@ -13,12 +15,18 @@ function mergeSort<T>(array: T[], cmp: (a: T, b: T) => number) {
 		while (ai < a.length && bi < b.length) {
 			cmp(a[ai], b[bi]) <= 0 ? (r[i++] = a[ai++]) : (r[i++] = b[bi++]);
 		}
-		if (ai < a.length) r.push.apply(r, a.slice(ai));
-		if (bi < b.length) r.push.apply(r, b.slice(bi));
+		if (ai < a.length) {
+			r.push.apply(r, a.slice(ai));
+		}
+		if (bi < b.length) {
+			r.push.apply(r, b.slice(bi));
+		}
 		return r;
 	}
 	function _ms(a: T[]) {
-		if (a.length <= 1) return a;
+		if (a.length <= 1) {
+			return a;
+		}
 		var m = Math.floor(a.length / 2),
 			left = a.slice(0, m),
 			right = a.slice(m);
@@ -30,8 +38,8 @@ function mergeSort<T>(array: T[], cmp: (a: T, b: T) => number) {
 }
 
 export const base53 = (() => {
-	const leading = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_".split("");
-	const digits = "0123456789".split("");
+	const leading = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_'.split('');
+	const digits = '0123456789'.split('');
 	let chars: string[];
 	let frequency: Map<string, number>;
 	function reset() {
@@ -58,7 +66,7 @@ export const base53 = (() => {
 	reset();
 	sort();
 	function base53(num: number) {
-		var ret = "",
+		var ret = '',
 			base = 53;
 		num++;
 		do {

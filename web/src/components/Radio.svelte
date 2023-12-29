@@ -2,17 +2,17 @@
 	export let radioList: T[];
 	export let value: T;
 
-	const change = (e: {currentTarget: HTMLInputElement}) => {
+	const change = (e: { currentTarget: HTMLInputElement }) => {
 		value = e.currentTarget.value as T;
 	};
 </script>
 
 <div>
 	{#each radioList as r}
-	<label>
-		<input checked={value === r} on:change={change} type="radio" name="" value={r} />
-		<span>{r}</span>
-	</label>
+		<label>
+			<input checked={value === r} on:change={change} type="radio" name="" value={r} />
+			<span>{r}</span>
+		</label>
 	{/each}
 </div>
 

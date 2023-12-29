@@ -1,11 +1,13 @@
-import { UpdateExpression } from "meriyah/dist/src/estree";
-import { ConvertExpression } from "./ConvertExpression";
-import { convertExpressions } from "../../convert";
+import { UpdateExpression } from 'acorn';
+import { ConvertExpression } from './ConvertExpression';
+import { convertExpressions } from '../../convert';
 import { nestIndents, optionalNewLine, optionalWhiteSpace } from './../../utils/indent';
 
 export class ConvertUpdateExpression extends ConvertExpression<UpdateExpression> {
-
-	public constructor(expr: UpdateExpression, private isState: boolean) {
+	public constructor(
+		expr: UpdateExpression,
+		private isState: boolean
+	) {
 		super(expr);
 	}
 

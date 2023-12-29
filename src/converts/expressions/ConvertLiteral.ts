@@ -1,17 +1,15 @@
-import { Literal } from "meriyah/dist/src/estree";
-import { ConvertExpression } from "./ConvertExpression";
-import { UnsupportedLiteralTypeError } from "../../expections/UnsupportedLiteralTypeError";
+import { Literal } from 'acorn';
+import { ConvertExpression } from './ConvertExpression';
+import { UnsupportedLiteralTypeError } from '../../expections/UnsupportedLiteralTypeError';
+import { ConvertError } from '../../expections/ConvertError';
 
-const unSupportedType = [
-	'RegExp'
-] as const;
+const unSupportedType = ['RegExp'] as const;
 
 export class ConvertLiteral extends ConvertExpression<Literal> {
-
 	private isUnsupportedType() {
 		const tr = typeof this.expr.value;
-		const t = tr === 'object' ? this.expr.value instanceof RegExp ? 'RegExp' : this.expr.value === null ? 'null' : tr : tr;
-		return unSupportedType.some(v => v === t);
+		const t = tr === 'object' ? (this.expr.value instanceof RegExp ? 'RegExp' : this.expr.value === null ? 'null' : tr) : tr;
+		return unSupportedType.some((v) => v === t);
 	}
 
 	public convert(): string {
@@ -19,7 +17,12 @@ export class ConvertLiteral extends ConvertExpression<Literal> {
 			throw new UnsupportedLiteralTypeError();
 		}
 
-		if (this.expr.value === null) return 'null';
+		if (this.expr.value === undefined) {
+			throw new ConvertError('literal unknown value', this.expr.loc?.start, this.expr.loc?.end);
+		}
+		if (this.expr.value === null) {
+			return 'null';
+		}
 		if (typeof this.expr.value === 'string') {
 			return `'${this.expr.value}'`;
 		}

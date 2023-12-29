@@ -1,6 +1,8 @@
-export class UnsupportedLiteralTypeError extends Error {
-	public constructor(message?: string) {
-		super(message);
+import { ConvertError } from './ConvertError';
+
+export class UnsupportedLiteralTypeError extends ConvertError {
+	public constructor(start?: ConvertError['start'], end?: ConvertError['end']) {
+		super('unsupported literal', start, end);
 		this.name = 'UnsupportedLiteralTypeError';
 	}
 }

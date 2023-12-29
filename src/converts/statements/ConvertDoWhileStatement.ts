@@ -1,7 +1,7 @@
-import { ConvertStatement } from "./ConvertStatement";
-import { convertExpressions, convertStatements } from "../../convert";
-import { nestIndents, optionalNewLine, optionalWhiteSpace } from "../../utils/indent";
-import { DoWhileStatement } from "meriyah/dist/src/estree";
+import { ConvertStatement } from './ConvertStatement';
+import { convertExpressions, convertStatements } from '../../convert';
+import { nestIndents, optionalNewLine, optionalWhiteSpace } from '../../utils/indent';
+import { DoWhileStatement } from 'acorn';
 
 export class ConvertDoWhileStatement extends ConvertStatement<DoWhileStatement> {
 	private toAiScript(test: string, body: string, isPure: boolean): string {

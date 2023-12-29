@@ -1,5 +1,5 @@
-import { Identifier } from "meriyah/dist/src/estree";
-import { ConvertExpression } from "./ConvertExpression";
+import { Identifier } from 'acorn';
+import { ConvertExpression } from './ConvertExpression';
 
 export class ConvertIdentifier extends ConvertExpression<Identifier> {
 	public convert(): string {

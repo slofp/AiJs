@@ -1,9 +1,9 @@
 <script lang="ts">
-	export let onclick = () => {};
+	export let onclick: () => void;
 </script>
 
 <button on:click={onclick}>
-	<slot></slot>
+	<slot />
 </button>
 
 <style>
