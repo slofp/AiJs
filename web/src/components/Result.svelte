@@ -24,5 +24,5 @@
 			height: '100%',
 		},
 	}}
-	class="editor-root"
+	class="result-code-frame"
 />

@@ -9,6 +9,8 @@
 	let jsSrc = '';
 	let resultSrc = '';
 	let options: ConvertOptions = { minify: false };
+	let errored = false;
+	let errMessage = '';
 
 	const updateResult = (js: string, op: ConvertOptions) => {
 		const checkedOptions: ConvertOptions = {
@@ -25,9 +27,18 @@
 					},
 		};
 		convert(js, checkedOptions)
-			.then((src) => (resultSrc = src))
+			.then((src) => {
+				errored = false;
+				errMessage = '';
+				resultSrc = src;
+			})
 			.catch((e) => {
-				console.error(e);
+				if (e instanceof Error) {
+					errMessage = e.message;
+					errored = true;
+				} else {
+					console.error(e);
+				}
 			});
 	};
 
@@ -62,7 +73,14 @@
 			<Options bind:options />
 		{:else}
 			<h2>AiScript Result</h2>
-			<Result bind:src={resultSrc} />
+			<div class="editor-root">
+				<Result bind:src={resultSrc} />
+				{#if errored}
+					<div class="error-container">
+						<p>{errMessage}</p>
+					</div>
+				{/if}
+			</div>
 		{/if}
 	</div>
 </main>
@@ -97,6 +115,7 @@
 	.size {
 		width: 100%;
 		height: 100%;
+		position: relative;
 	}
 
 	h1 {
@@ -115,5 +134,19 @@
 	}
 	a:hover {
 		color: #535bf2;
+	}
+
+	.error-container {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background-color: rgb(218, 73, 73);
+		color: #fff;
+		padding: 15px;
+	}
+	.error-container p {
+		font-weight: bold;
+		letter-spacing: 1.5;
 	}
 </style>
