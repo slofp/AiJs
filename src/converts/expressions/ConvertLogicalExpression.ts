@@ -1,24 +1,15 @@
-import { LogicalExpression } from "meriyah/dist/src/estree";
-import { ConvertExpression } from "./ConvertExpression";
-import { convertExpressions } from "../../convert";
-import { optionalWhiteSpace } from "../../utils/indent";
+import { LogicalExpression } from 'acorn';
+import { ConvertExpression } from './ConvertExpression';
+import { convertExpressions } from '../../convert';
+import { optionalWhiteSpace } from '../../utils/indent';
+import { CannotConvertError } from '../../expections/CannotConvertError';
 
-const logicalOperator = [
-	'&&',
-	'||'
-] as const;
-type logicalExpression = LogicalExpression & {
-	operator: typeof logicalOperator[number]
-};
+const unsupportLogicalOperator: LogicalExpression['operator'][] = ['??'] as const;
 
-export class ConvertLogicalExpression extends ConvertExpression<logicalExpression> {
-	private static checkOperator(expr: LogicalExpression): expr is logicalExpression {
-		return logicalOperator.some(v => v === expr.operator);
-	}
-
+export class ConvertLogicalExpression extends ConvertExpression<LogicalExpression> {
 	public constructor(expr: LogicalExpression) {
-		if (!ConvertLogicalExpression.checkOperator(expr)) {
-			throw new Error('Unknown logical operator');
+		if (!unsupportLogicalOperator.some((v) => v === expr.operator)) {
+			throw new CannotConvertError('Unknown logical operator', expr.loc?.start, expr.loc?.end);
 		}
 
 		super(expr);

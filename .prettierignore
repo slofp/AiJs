@@ -1,0 +1,14 @@
+.DS_Store
+node_modules
+dist
+pnpm-lock.yaml
+package.json
+package-lock.json
+pnpm-workspace.yaml
+yarn.lock
+tsconfig.json
+tsconfig.node.json
+.github
+.vscode
+**/*.ai.js
+**/*.ai

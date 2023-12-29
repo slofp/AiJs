@@ -16,7 +16,7 @@ const options: MinifyOptions = {
 			nth_identifier: base53,
 			regex: excludeRegExp,
 			reserved: [],
-		}
+		},
 	},
 	compress: {
 		defaults: false,
@@ -39,11 +39,15 @@ const options: MinifyOptions = {
 	},
 	keep_classnames: false,
 	keep_fnames: false,
-	module: true
+	module: true,
 };
 
 export async function minifyIdentifier(source: string) {
 	const result = await minify(source, options);
-	if (result.code) return result.code;
-	else throw new Error('minify error');
+	if (result.code) {
+		return result.code;
+	}
+	else {
+		throw new Error('minify error');
+	}
 }

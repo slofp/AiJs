@@ -1,31 +1,35 @@
 <script lang="ts">
-	import {convert} from '@slofp/aijs/src/index';
+	import { convert } from '@slofp/aijs/src/index';
 	import Button from './components/Button.svelte';
 	import Editor from './components/Editor.svelte';
 	import Result from './components/Result.svelte';
-    import Options from './components/Options.svelte';
-    import type { ConvertOptions } from '../../src/type';
+	import Options from './components/Options.svelte';
+	import type { ConvertOptions } from '../../src/type';
 
 	let jsSrc = '';
 	let resultSrc = '';
-	let options: ConvertOptions = {
-		minify: false
-	};
+	let options: ConvertOptions = { minify: false };
 
 	const updateResult = (js: string, op: ConvertOptions) => {
 		const checkedOptions: ConvertOptions = {
 			...op,
-			meta: !op.meta ? undefined : {
-				name: op.meta.name?.trim().length !== 0 ? op.meta.name : undefined,
-				author: op.meta.author?.trim().length !== 0 ? op.meta.author : undefined,
-				description: op.meta.description?.trim().length !== 0 ? op.meta.description : undefined,
-				version: op.meta.version?.trim().length !== 0 ? op.meta.version : undefined,
-				permissions: op.meta.permissions,
-				config: op.meta.config
-			}
+			meta: !op.meta
+				? undefined
+				: {
+						name: op.meta.name?.trim().length !== 0 ? op.meta.name : undefined,
+						author: op.meta.author?.trim().length !== 0 ? op.meta.author : undefined,
+						description: op.meta.description?.trim().length !== 0 ? op.meta.description : undefined,
+						version: op.meta.version?.trim().length !== 0 ? op.meta.version : undefined,
+						permissions: op.meta.permissions,
+						config: op.meta.config,
+					},
 		};
 		console.log(checkedOptions);
-		convert(js, checkedOptions).then(src => resultSrc = src).catch(e => {});
+		convert(js, checkedOptions)
+			.then((src) => (resultSrc = src))
+			.catch((e) => {
+				console.error(e);
+			});
 	};
 
 	const changeSrcFunc = (v: string) => {
@@ -42,9 +46,7 @@
 		<h1>JavaScript to AiScript Converter (ai.js v0.0.2)</h1>
 	</div>
 	<div>
-		<Button onclick={() => openOptions = !openOptions}>
-			Options
-		</Button>
+		<Button onclick={() => (openOptions = !openOptions)}>Options</Button>
 	</div>
 </header>
 
@@ -55,11 +57,11 @@
 	</div>
 	<div class="size">
 		{#if openOptions}
-		<h2>Options</h2>
-		<Options bind:options />
+			<h2>Options</h2>
+			<Options bind:options />
 		{:else}
-		<h2>AiScript Result</h2>
-		<Result bind:src={resultSrc} />
+			<h2>AiScript Result</h2>
+			<Result bind:src={resultSrc} />
 		{/if}
 	</div>
 </main>

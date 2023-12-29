@@ -1,10 +1,10 @@
-import { BlockStatement } from "meriyah/dist/src/estree";
+import { BlockStatement } from 'acorn';
 import { ConvertStatement } from './ConvertStatement';
-import { convertStatements } from "../../convert";
-import { generateIndents, optionalNewLine, optionalWhiteSpace } from "../../utils/indent";
+import { convertStatements } from '../../convert';
+import { generateIndents, optionalNewLine, optionalWhiteSpace } from '../../utils/indent';
+import { INode } from '../INode';
 
 export class ConvertBlockStatement extends ConvertStatement<BlockStatement> {
-
 	private isEval: boolean;
 
 	public constructor(state: BlockStatement, isEval: boolean) {
@@ -13,12 +13,21 @@ export class ConvertBlockStatement extends ConvertStatement<BlockStatement> {
 	}
 
 	public convert(): string {
-		const result: ConvertStatement<any>[] = [];
+		const result: INode[] = [];
 		for (const state of this.state.body) {
 			result.push(convertStatements(state));
 		}
 
-		const resultText = `{${optionalNewLine()}${result.map(v => generateIndents() + v.convert().split('\n').join('\n' + generateIndents())).join('\n')}${optionalNewLine()}}`;
+		const resultText = `{${optionalNewLine()}${result
+			.map(
+				(v) =>
+					generateIndents() +
+					v
+						.convert()
+						.split('\n')
+						.join('\n' + generateIndents())
+			)
+			.join('\n')}${optionalNewLine()}}`;
 		if (this.isEval) {
 			return `eval${optionalWhiteSpace()}${resultText}`;
 		}

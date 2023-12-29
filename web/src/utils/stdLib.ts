@@ -1,23 +1,22 @@
-import { scopeCompletionSource } from "@codemirror/lang-javascript";
+import { scopeCompletionSource } from '@codemirror/lang-javascript';
 
-const dummyFunc = () => { };
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const dummyFunc = () => {};
 const dummyProp = '';
 
 const Core = {
 	v: dummyProp,
 	type: dummyFunc,
 	to_str: dummyFunc,
-	sleep: dummyFunc
+	sleep: dummyFunc,
 };
 
-const Util = {
-	uuid: dummyFunc
-};
+const Util = { uuid: dummyFunc };
 
 const Json = {
 	stringify: dummyFunc,
 	parse: dummyFunc,
-	parsable: dummyFunc
+	parsable: dummyFunc,
 };
 
 const Date = {
@@ -28,7 +27,7 @@ const Date = {
 	hour: dummyFunc,
 	minute: dummyFunc,
 	second: dummyFunc,
-	parse: dummyFunc
+	parse: dummyFunc,
 };
 
 const _Math = {
@@ -81,7 +80,7 @@ const _Math = {
 
 const Num = {
 	to_hex: dummyFunc,
-	from_hex: dummyFunc
+	from_hex: dummyFunc,
 };
 
 const Str = {
@@ -90,7 +89,7 @@ const Str = {
 	gt: dummyFunc,
 	from_codepoint: dummyFunc,
 	from_unicode_codepoints: dummyFunc,
-	from_utf8_bytes: dummyFunc
+	from_utf8_bytes: dummyFunc,
 };
 
 const Obj = {
@@ -101,16 +100,14 @@ const Obj = {
 	set: dummyFunc,
 	has: dummyFunc,
 	copy: dummyFunc,
-	merge: dummyFunc
+	merge: dummyFunc,
 };
 
-const Error = {
-	create: dummyFunc,
-};
+const Error = { create: dummyFunc };
 
 const Async = {
 	interval: dummyFunc,
-	timeout: dummyFunc
+	timeout: dummyFunc,
 };
 
 export const stdLibCompletionScope = scopeCompletionSource({
@@ -125,5 +122,5 @@ export const stdLibCompletionScope = scopeCompletionSource({
 	Str,
 	Obj,
 	Error,
-	Async
+	Async,
 });

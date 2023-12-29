@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { createEventDispatcher } from "svelte";
-    import type { ConfigProps } from "../utils/type";
-	import Input from "./Input.svelte";
-    import Switch from "./Switch.svelte";
-    import Radio from "./Radio.svelte";
-    import Button from "./Button.svelte";
+	import { createEventDispatcher } from 'svelte';
+	import type { ConfigProps } from '../utils/type';
+	import Input from './Input.svelte';
+	import Switch from './Switch.svelte';
+	import Radio from './Radio.svelte';
+	import Button from './Button.svelte';
 
 	const idChar = 'aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ';
 	const generateId = () => {
@@ -19,13 +19,9 @@
 	export let value: ConfigProps;
 
 	const dispatch = createEventDispatcher<{
-		remove: void
+		remove: void;
 	}>();
-	const radioList: ConfigProps['type'][] = [
-		'boolean',
-		'number',
-		'string'
-	];
+	const radioList: ConfigProps['type'][] = ['boolean', 'number', 'string'];
 
 	let inputDefault = '';
 	let inputDefaultBool = false;
@@ -33,8 +29,7 @@
 	$: if (value.type === 'boolean') {
 		inputDefault = '';
 		value.default = inputDefaultBool;
-	}
-	else {
+	} else {
 		inputDefaultBool = false;
 		if (value.type === 'number') {
 			let numRes = Number(inputDefault);
@@ -42,8 +37,7 @@
 				numRes = 0;
 			}
 			value.default = numRes;
-		}
-		else {
+		} else {
 			value.default = inputDefault;
 		}
 	}
@@ -56,7 +50,7 @@
 	</div>
 	<div>
 		<h3>Type</h3>
-		<Radio radioList={radioList} bind:value={value.type} />
+		<Radio {radioList} bind:value={value.type} />
 	</div>
 	<div>
 		<h3>Label</h3>
@@ -69,14 +63,14 @@
 	<div>
 		<h3>Default Value</h3>
 		{#if value.type === 'boolean'}
-		<div class="switch-content">
-			<Switch id={generateId()} bind:checked={inputDefaultBool} />
-			<p>{inputDefaultBool}</p>
-		</div>
+			<div class="switch-content">
+				<Switch id={generateId()} bind:checked={inputDefaultBool} />
+				<p>{inputDefaultBool}</p>
+			</div>
 		{:else if value.type === 'number'}
-		<Input id={generateId()} bind:value={inputDefault} valid={v => numericValid.test(v)} />
+			<Input id={generateId()} bind:value={inputDefault} valid={(v) => numericValid.test(v)} />
 		{:else}
-		<Input id={generateId()} bind:value={inputDefault} />
+			<Input id={generateId()} bind:value={inputDefault} />
 		{/if}
 	</div>
 	<Button onclick={() => dispatch('remove')}>Remove</Button>

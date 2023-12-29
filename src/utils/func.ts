@@ -1,15 +1,11 @@
-import { Parameter } from "meriyah/dist/src/estree";
-import { optionalWhiteSpace } from "./indent";
+import { Pattern } from 'acorn';
+import { optionalWhiteSpace } from './indent';
+import { convertPatterns } from '../convert';
 
-export function convertArgs(params: Parameter[]) {
+export function convertArgs(params: Pattern[]) {
 	const result: string[] = [];
 	for (const param of params) {
-		// TODO: arg=default、[arg]、{arg}をサポートする
-		if (param.type !== 'Identifier') {
-			throw new Error('未実装の引数情報');
-		}
-
-		result.push(param.name);
+		result.push(convertPatterns(param).convert());
 	}
 
 	return result;

@@ -1,8 +1,8 @@
-import { ForStatement } from "meriyah/dist/src/estree";
-import { ConvertStatement } from "./ConvertStatement";
-import { existsVariable } from "../../utils/exists";
-import { convertExpressions, convertStatements } from "../../convert";
-import { INode } from "../INode";
+import { ForStatement } from 'acorn';
+import { ConvertStatement } from './ConvertStatement';
+import { existsVariable } from '../../utils/exists';
+import { convertExpressions, convertStatements } from '../../convert';
+import { INode } from '../INode';
 import { nestIndents, optionalNewLine, optionalWhiteSpace } from '../../utils/indent';
 
 export class ConvertForStatement extends ConvertStatement<ForStatement> {
@@ -11,20 +11,26 @@ export class ConvertForStatement extends ConvertStatement<ForStatement> {
 	}
 
 	private checkUpdateCounter(name: string) {
-		if (this.state.update === null) return false;
-		if (this.state.update.type === 'UpdateExpression' &&
+		if (this.state.update === null || this.state.update === undefined) {
+			return false;
+		}
+		if (
+			this.state.update.type === 'UpdateExpression' &&
 			!this.state.update.prefix &&
 			this.state.update.operator === '++' &&
 			this.state.update.argument.type === 'Identifier' &&
-			this.state.update.argument.name === name) {
+			this.state.update.argument.name === name
+		) {
 			return true;
 		}
-		else if (this.state.update.type === 'AssignmentExpression' &&
+		else if (
+			this.state.update.type === 'AssignmentExpression' &&
 			this.state.update.operator === '+=' &&
 			this.state.update.left.type === 'Identifier' &&
 			this.state.update.right.type === 'Literal' &&
 			this.state.update.right.value === 1 &&
-			this.state.update.left.name === name) {
+			this.state.update.left.name === name
+		) {
 			return true;
 		}
 
@@ -32,45 +38,43 @@ export class ConvertForStatement extends ConvertStatement<ForStatement> {
 	}
 
 	private checkInitCounter(): { check: boolean; name?: string } {
-		if (this.state.init !== null &&
+		if (
+			this.state.init !== null &&
+			this.state.init !== undefined &&
 			this.state.init.type === 'VariableDeclaration' &&
 			this.state.init.declarations.length === 1 &&
 			this.state.init.declarations[0].init !== null &&
+			this.state.init.declarations[0].init !== undefined &&
 			this.state.init.declarations[0].init.type === 'Literal' &&
 			this.state.init.declarations[0].init.value === 0 &&
-			this.state.init.declarations[0].id.type === 'Identifier') {
+			this.state.init.declarations[0].id.type === 'Identifier'
+		) {
 			return {
 				check: true,
-				name: this.state.init.declarations[0].id.name
+				name: this.state.init.declarations[0].id.name,
 			};
 		}
 
-		return {
-			check: false
-		};
+		return { check: false };
 	}
 
 	private checkTestCounter(name: string): { check: boolean; value?: string } {
-		if (this.state.test !== null && this.state.test.type === 'BinaryExpression') {
-			if (this.state.test.left.type === 'Identifier' &&
-				this.state.test.operator === '<') {
+		if (this.state.test !== null && this.state.test !== undefined && this.state.test.type === 'BinaryExpression') {
+			if (this.state.test.left.type === 'Identifier' && this.state.test.operator === '<') {
 				return {
 					check: this.state.test.left.name === name,
-					value: convertExpressions(this.state.test.right).convert()
+					value: convertExpressions(this.state.test.right).convert(),
 				};
 			}
-			else if (this.state.test.operator === '>' &&
-				this.state.test.right.type === 'Identifier') {
+			else if (this.state.test.operator === '>' && this.state.test.right.type === 'Identifier') {
 				return {
 					check: this.state.test.right.name === name,
-					value: convertExpressions(this.state.test.left).convert()
+					value: convertExpressions(this.state.test.left).convert(),
 				};
 			}
 		}
 
-		return {
-			check: false
-		};
+		return { check: false };
 	}
 
 	private toAiScriptFor(name: string, count: string, isUsing: boolean, state: string): string {
@@ -97,9 +101,9 @@ export class ConvertForStatement extends ConvertStatement<ForStatement> {
 	}
 
 	private convertLoop(): string {
-		const init: INode | null = this.state.init ?
-			this.state.init.type === 'VariableDeclaration' ?
-				convertStatements(this.state.init)
+		const init: INode | null = this.state.init
+			? this.state.init.type === 'VariableDeclaration'
+				? convertStatements(this.state.init)
 				: convertExpressions(this.state.init, true)
 			: null;
 		const test = this.state.test ? convertExpressions(this.state.test, true).convert() : 'true';
@@ -111,14 +115,20 @@ export class ConvertForStatement extends ConvertStatement<ForStatement> {
 
 	public convert(): string {
 		const initCheck = this.checkInitCounter();
-		if (!initCheck.check) return this.convertLoop();
+		if (!initCheck.check) {
+			return this.convertLoop();
+		}
 		const name = initCheck.name!;
 
 		const testCheck = this.checkTestCounter(name);
-		if (!testCheck.check) return this.convertLoop();
+		if (!testCheck.check) {
+			return this.convertLoop();
+		}
 		const value = testCheck.value!;
 
-		if (!this.checkUpdateCounter(name)) return this.convertLoop();
+		if (!this.checkUpdateCounter(name)) {
+			return this.convertLoop();
+		}
 
 		return this.toAiScriptFor(name, value, this.checkUsingCounter(name), convertStatements(this.state.body, false).convert());
 	}

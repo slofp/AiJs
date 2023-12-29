@@ -1,6 +1,6 @@
-import { BreakStatement } from "meriyah/dist/src/estree";
-import { ConvertStatement } from "./ConvertStatement";
-import { CannotConvertError } from "../../expections/CannotConvertError";
+import { BreakStatement } from 'acorn';
+import { ConvertStatement } from './ConvertStatement';
+import { CannotConvertError } from '../../expections/CannotConvertError';
 
 export class ConvertBreakStatement extends ConvertStatement<BreakStatement> {
 	public convert(): string {

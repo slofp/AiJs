@@ -1,10 +1,10 @@
-import { ObjectExpression } from "meriyah/dist/src/estree";
-import { ConvertExpression } from "./ConvertExpression";
-import { ConvertProperty } from "../objectLiterals/ConvertProperty";
-import { nestIndents, optionalNewLine } from "../../utils/indent";
+import { ObjectExpression } from 'acorn';
+import { ConvertExpression } from './ConvertExpression';
+import { nestIndents, optionalNewLine } from '../../utils/indent';
+import { NotImplementError } from '../../expections/NotImplementError';
+import { ConvertProperty } from '../others/ConvertProperty';
 
 export class ConvertObjectExpression extends ConvertExpression<ObjectExpression> {
-
 	public convertObjectLiterals() {
 		const results = [];
 
@@ -14,11 +14,11 @@ export class ConvertObjectExpression extends ConvertExpression<ObjectExpression>
 					results.push(new ConvertProperty(ol));
 					break;
 				default:
-					throw new Error(`${ol.type}は未実装です`);
+					throw new NotImplementError(`${ol.type}は未実装です`, this.expr.loc?.start, this.expr.loc?.end);
 			}
 		}
 
-		return results.map(v => v.convert()).join(`,${optionalNewLine()}`);
+		return results.map((v) => v.convert()).join(`,${optionalNewLine()}`);
 	}
 
 	public convert(): string {

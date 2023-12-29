@@ -1,11 +1,14 @@
-import { IfStatement, Statement } from "meriyah/dist/src/estree";
-import { ConvertStatement } from "./ConvertStatement";
-import { convertExpressions, convertStatements } from "../../convert";
-import { insertNewLine, optionalWhiteSpace } from "../../utils/indent";
+import { IfStatement, Statement } from 'acorn';
+import { ConvertStatement } from './ConvertStatement';
+import { convertExpressions, convertStatements } from '../../convert';
+import { insertNewLine, optionalWhiteSpace } from '../../utils/indent';
+import { INode } from '../INode';
 
 export class ConvertIfStatement extends ConvertStatement<IfStatement> {
-
-	public constructor(state: IfStatement, private isElif: boolean = false) {
+	public constructor(
+		state: IfStatement,
+		private isElif: boolean = false
+	) {
 		super(state);
 	}
 
@@ -37,10 +40,10 @@ export class ConvertIfStatement extends ConvertStatement<IfStatement> {
 	public convert(): string {
 		const test = convertExpressions(this.state.test).convert();
 		const then = convertStatements(this.state.consequent, false).convert();
-		let alter: ConvertStatement<any> | null = null;
+		let alter: INode | null = null;
 		let alterIsElif = false;
-		if (this.state.alternate !== null) {
-			if (alterIsElif = ConvertIfStatement.checkElif(this.state.alternate)) {
+		if (this.state.alternate !== null && this.state.alternate !== undefined) {
+			if ((alterIsElif = ConvertIfStatement.checkElif(this.state.alternate))) {
 				alter = new ConvertIfStatement(this.state.alternate, true);
 			}
 			else {

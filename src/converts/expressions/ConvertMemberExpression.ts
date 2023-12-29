@@ -1,10 +1,10 @@
-import { Identifier, MemberExpression } from "meriyah/dist/src/estree";
-import { ConvertExpression } from "./ConvertExpression";
+import { Identifier, MemberExpression } from 'acorn';
+import { ConvertExpression } from './ConvertExpression';
 import { identifierStdName, uiNestIdentifierName } from '../../utils/stdLib';
-import { convertExpressions } from "../../convert";
+import { convertExpressions } from '../../convert';
+import { CannotConvertError } from '../../expections/CannotConvertError';
 
 export class ConvertMemberExpression extends ConvertExpression<MemberExpression> {
-
 	private checkStd() {
 		if (this.expr.object.type === 'MemberExpression' && this.expr.object.property.type === 'Identifier') {
 			if (new ConvertMemberExpression(this.expr.object).checkStd()) {
@@ -28,6 +28,9 @@ export class ConvertMemberExpression extends ConvertExpression<MemberExpression>
 	}
 
 	public convert(): string {
+		if (this.expr.object.type === 'Super') {
+			throw new CannotConvertError('super is not support.', this.expr.object.loc?.start, this.expr.loc?.end);
+		}
 		const obj = convertExpressions(this.expr.object).convert();
 		const prop = this.convertProp();
 

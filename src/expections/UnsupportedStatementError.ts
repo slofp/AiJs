@@ -1,6 +1,8 @@
-export class UnsupportedStatementError extends Error {
-	public constructor(message?: string) {
-		super(message);
+import { ConvertError } from './ConvertError';
+
+export class UnsupportedStatementError extends ConvertError {
+	public constructor(message: ConvertError['message'] = 'unsupported statement', start?: ConvertError['start'], end?: ConvertError['end']) {
+		super(message, start, end);
 		this.name = 'UnsupportedStatementError';
 	}
 }

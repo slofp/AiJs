@@ -1,5 +1,5 @@
-import { ReturnStatement } from "meriyah/dist/src/estree";
-import { ConvertStatement } from "./ConvertStatement";
+import { ReturnStatement } from 'acorn';
+import { ConvertStatement } from './ConvertStatement';
 import { convertExpressions } from '../../convert';
 
 export class ConvertReturnStatement extends ConvertStatement<ReturnStatement> {
@@ -8,7 +8,9 @@ export class ConvertReturnStatement extends ConvertStatement<ReturnStatement> {
 	}
 
 	public convert(): string {
-		if (this.state.argument === null) return this.toAiScript('');
+		if (this.state.argument === null || this.state.argument === undefined) {
+			return this.toAiScript('');
+		}
 		return this.toAiScript(convertExpressions(this.state.argument).convert());
 	}
 }

@@ -1,9 +1,7 @@
 // マングル時、javascript規定外の名前が含まれているとマングルしてしまう。
 // これはそれを防ぐための定義実装
 
-const num = [
-	'to_str'
-];
+const num = ['to_str'];
 
 // arrと共通するものはarrに統一
 const str = [
@@ -22,15 +20,8 @@ const str = [
 	'codepoint_at',
 ];
 
-const arr = [
-	'len',
-	'incl',
-	'copy',
-];
+const arr = ['len', 'incl', 'copy'];
 
-const error = [
-	'name',
-	'info'
-];
+const error = ['name', 'info'];
 
 export const excludeRegExp = new RegExp(`^(?!(${[...num, ...str, ...arr, ...error].join('|')})$)`);

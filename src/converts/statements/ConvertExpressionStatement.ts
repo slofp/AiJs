@@ -1,6 +1,6 @@
-import { ExpressionStatement } from "meriyah/dist/src/estree";
-import { ConvertStatement } from "./ConvertStatement";
-import { convertExpressions } from "../../convert";
+import { ExpressionStatement } from 'acorn';
+import { ConvertStatement } from './ConvertStatement';
+import { convertExpressions } from '../../convert';
 
 export class ConvertExpressionStatement extends ConvertStatement<ExpressionStatement> {
 	public convert(): string {

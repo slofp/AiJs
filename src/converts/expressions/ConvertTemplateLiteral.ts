@@ -1,4 +1,4 @@
-import { TemplateLiteral } from 'meriyah/dist/src/estree';
+import { TemplateLiteral } from 'acorn';
 import { ConvertExpression } from './ConvertExpression';
 import { strLf } from '../../utils/newline';
 import { convertExpressions } from '../../convert';

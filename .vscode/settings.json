@@ -1,0 +1,14 @@
+{
+	"prettier.configPath": "./.prettierrc",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"eslint.validate": [
+		"javascript",
+		"typescript",
+		"svelte"
+	],
+	"[svelte][typescript]": {
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": "explicit"
+		}
+	}
+}
