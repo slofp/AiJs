@@ -57,7 +57,7 @@ export function convertPatterns(pat: Pattern): INode {
 
 export function convertStatements(state: Statement, isEval = true): INode {
 	if (checkUnsupportedStatement(state.type)) {
-		throw new UnsupportedStatementError();
+		throw new UnsupportedStatementError(`${state.type}はサポートされません`, state.loc?.start, state.loc?.end);
 	}
 
 	switch (state.type) {
@@ -135,7 +135,7 @@ export function convertFromProgram(program: Program) {
 
 	for (const state of program.body) {
 		if (checkModuleDeclaration(state)) {
-			throw new UnsupportedStatementError();
+			throw new UnsupportedStatementError('import/exportは使用できません', state.loc?.start, state.loc?.end);
 		}
 		bodyConvert.push(convertStatements(state));
 	}

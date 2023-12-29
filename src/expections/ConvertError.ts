@@ -16,7 +16,7 @@ export class ConvertError extends Error {
 	) {
 		let pos = '';
 		if (end !== null && start !== null) {
-			pos = `(${end.line}:${end.column})`;
+			pos = ` (${end.line}:${end.column})`;
 		}
 		else if (end === null && start !== null) {
 			end = start;

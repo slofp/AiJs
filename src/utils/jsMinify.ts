@@ -1,6 +1,7 @@
 import { MinifyOptions, minify } from 'terser';
 import { base53 } from './base53';
 import { excludeRegExp } from './stdProp';
+import { ConvertError } from '../expections/ConvertError';
 
 const options: MinifyOptions = {
 	mangle: {
@@ -43,11 +44,26 @@ const options: MinifyOptions = {
 };
 
 export async function minifyIdentifier(source: string) {
-	const result = await minify(source, options);
-	if (result.code) {
-		return result.code;
+	try {
+		const result = await minify(source, options);
+		if (result.code !== undefined) {
+			return result.code;
+		}
+		else {
+			throw new ConvertError('minifyに失敗しました');
+		}
 	}
-	else {
-		throw new Error('minify error');
+	catch (err) {
+		if (err instanceof Error) {
+			const pos =
+				'line' in err && 'col' in err && typeof err.line === 'number' && typeof err.col === 'number'
+					? {
+							line: err.line,
+							column: err.col,
+						}
+					: undefined;
+			throw new ConvertError(`${err.message}`, pos, pos);
+		}
+		throw new ConvertError('minifyに失敗しました');
 	}
 }

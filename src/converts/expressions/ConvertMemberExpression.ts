@@ -29,7 +29,7 @@ export class ConvertMemberExpression extends ConvertExpression<MemberExpression>
 
 	public convert(): string {
 		if (this.expr.object.type === 'Super') {
-			throw new CannotConvertError('super is not support.', this.expr.object.loc?.start, this.expr.loc?.end);
+			throw new CannotConvertError('superは使用できません', this.expr.object.loc?.start, this.expr.loc?.end);
 		}
 		const obj = convertExpressions(this.expr.object).convert();
 		const prop = this.convertProp();

@@ -27,7 +27,7 @@ export class ConvertVariableDeclaration extends ConvertStatement<VariableDeclara
 					name: id.name,
 				};
 			default:
-				throw new NotImplementError('未実装の代入情報', id.loc?.start, id.loc?.end);
+				throw new NotImplementError(`${id.type}は未実装です`, id.loc?.start, id.loc?.end);
 		}
 	}
 

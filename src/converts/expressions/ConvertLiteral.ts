@@ -14,11 +14,11 @@ export class ConvertLiteral extends ConvertExpression<Literal> {
 
 	public convert(): string {
 		if (this.isUnsupportedType()) {
-			throw new UnsupportedLiteralTypeError();
+			throw new UnsupportedLiteralTypeError('使用できないリテラルがあります', this.expr.loc?.start, this.expr.loc?.end);
 		}
 
 		if (this.expr.value === undefined) {
-			throw new ConvertError('literal unknown value', this.expr.loc?.start, this.expr.loc?.end);
+			throw new ConvertError('未知のエラー: literal unknown value', this.expr.loc?.start, this.expr.loc?.end);
 		}
 		if (this.expr.value === null) {
 			return 'null';
