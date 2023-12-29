@@ -19,7 +19,6 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          # https://github.com/pnpm/pnpm/issues/4937#issuecomment-1646218979
           registry-url: 'https://registry.npmjs.org/'
           always-auth: true
 
@@ -55,6 +54,7 @@ jobs:
         run: ./.github/workflows/addtag.sh
 
       - name: publish
-        run: pnpm publish
+        # 何故かpnpmでpublishできない
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
