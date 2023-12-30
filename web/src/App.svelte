@@ -5,12 +5,19 @@
 	import Result from './components/Result.svelte';
 	import Options from './components/Options.svelte';
 	import type { ConvertOptions } from '../../src/type';
+	import { getCode, getConfig, setCode, setConfig } from './utils/store';
 
-	let jsSrc = '';
+	const prevCode = getCode();
+	let jsSrc = prevCode;
 	let resultSrc = '';
-	let options: ConvertOptions = { minify: false };
+	let options: ConvertOptions = getConfig();
 	let errored = false;
 	let errMessage = '';
+
+	const saveData = (js: string, op: ConvertOptions) => {
+		setCode(js);
+		setConfig(op);
+	};
 
 	const updateResult = (js: string, op: ConvertOptions) => {
 		const checkedOptions: ConvertOptions = {
@@ -26,6 +33,9 @@
 						config: op.meta.config,
 					},
 		};
+
+		saveData(js, checkedOptions);
+
 		convert(js, checkedOptions)
 			.then((src) => {
 				errored = false;
@@ -65,7 +75,7 @@
 <main>
 	<div class="size">
 		<h2>Javascript Code</h2>
-		<Editor changefunc={changeSrcFunc} />
+		<Editor changefunc={changeSrcFunc} src={prevCode} />
 	</div>
 	<div class="size">
 		{#if openOptions}
