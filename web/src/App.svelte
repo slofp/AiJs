@@ -1,16 +1,26 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { convert } from '@slofp/aijs/src/index';
 	import Button from './components/Button.svelte';
 	import Editor from './components/Editor.svelte';
 	import Result from './components/Result.svelte';
 	import Options from './components/Options.svelte';
+	import LoadGist from './components/LoadGist.svelte';
+	import SaveGist from './components/SaveGist.svelte';
 	import type { ConvertOptions } from '../../src/type';
 	import { getCode, getConfig, setCode, setConfig } from './utils/store';
+	import { gistGetMeta } from './utils/gist';
 
-	const prevCode = getCode();
+	const urlParams = new URLSearchParams(window.location.search);
+	const gistId = urlParams.get('gist');
+
+	const storedPrevCode = getCode();
+	const storedOptions = getConfig();
+
+	let prevCode = '';
 	let jsSrc = prevCode;
 	let resultSrc = '';
-	let options: ConvertOptions = getConfig();
+	let options: ConvertOptions = {};
 	let errored = false;
 	let errMessage = '';
 
@@ -59,6 +69,27 @@
 	$: updateResult(jsSrc, options);
 
 	let openOptions = false;
+	let openLoadGist = false;
+	let openSaveGist = false;
+
+	onMount(async () => {
+		if (gistId === null) {
+			prevCode = storedPrevCode;
+			jsSrc = prevCode;
+			options = storedOptions;
+			//updateResult(jsSrc, options);
+			return;
+		}
+
+		try {
+			const meta = await gistGetMeta(gistId);
+			prevCode = meta.jsSource;
+			jsSrc = prevCode;
+			options = meta.config;
+		} catch (error) {
+			console.error(error);
+		}
+	});
 </script>
 
 <header>
@@ -68,6 +99,8 @@
 		<h1>JavaScript to AiScript Converter (ai.js v{VERSION})</h1>
 	</div>
 	<div>
+		<Button onclick={() => (openSaveGist = !openSaveGist)}>SaveGist</Button>
+		<Button onclick={() => (openLoadGist = !openLoadGist)}>LoadGist</Button>
 		<Button onclick={() => (openOptions = !openOptions)}>Options</Button>
 	</div>
 </header>
@@ -98,6 +131,13 @@
 <footer>
 	<p>AiJs | <a href="https://github.com/slofp/AiJs">github</a></p>
 </footer>
+
+{#if openLoadGist}
+<LoadGist bind:switchShow={openLoadGist} />
+{/if}
+{#if openSaveGist}
+	<SaveGist bind:switchShow={openSaveGist} gistId={gistId ?? undefined} aijsMeta={{ config: options, jsSource: jsSrc }} resultSource={resultSrc} />
+{/if}
 
 <style>
 	header {
