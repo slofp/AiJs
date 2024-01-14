@@ -1,6 +1,6 @@
-import { NewExpression } from "acorn";
-import { ConvertExpression } from "./ConvertExpression";
-import { ConvertCallExpression } from "./ConvertCallExpression";
+import { NewExpression } from 'acorn';
+import { ConvertExpression } from './ConvertExpression';
+import { ConvertCallExpression } from './ConvertCallExpression';
 
 export class ConvertNewExpression extends ConvertExpression<NewExpression> {
 	public convert(): string {
@@ -19,7 +19,7 @@ export class ConvertNewExpression extends ConvertExpression<NewExpression> {
 				},
 				computed: false,
 				optional: false,
-			}
+			},
 		}).convert();
 	}
 }

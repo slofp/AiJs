@@ -1,9 +1,9 @@
-import { ClassDeclaration } from "acorn";
-import { ConvertStatement } from "./ConvertStatement";
-import { convertExpressions } from "../../convert";
-import { ConvertClassBody } from "../classes/ConvertClassBody";
-import { optionalWhiteSpace } from "../../utils/indent";
-import { CannotConvertError } from "../../expections/CannotConvertError";
+import { ClassDeclaration } from 'acorn';
+import { ConvertStatement } from './ConvertStatement';
+import { convertExpressions } from '../../convert';
+import { ConvertClassBody } from '../classes/ConvertClassBody';
+import { optionalWhiteSpace } from '../../utils/indent';
+import { CannotConvertError } from '../../expections/CannotConvertError';
 
 export class ConvertClassDeclaration extends ConvertStatement<ClassDeclaration> {
 	public convert(): string {

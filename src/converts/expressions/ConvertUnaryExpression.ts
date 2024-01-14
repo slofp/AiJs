@@ -1,8 +1,8 @@
-import { UnaryExpression } from "acorn";
-import { ConvertExpression } from "./ConvertExpression";
-import { convertExpressions } from "../../convert";
+import { UnaryExpression } from 'acorn';
+import { ConvertExpression } from './ConvertExpression';
+import { convertExpressions } from '../../convert';
 import { UnsupportedOperatorError } from '../../expections/UnsupportedOperatorError';
-import { CannotConvertError } from "../../expections/CannotConvertError";
+import { CannotConvertError } from '../../expections/CannotConvertError';
 
 export class ConvertUnaryExpression extends ConvertExpression<UnaryExpression> {
 	public convert(): string {
@@ -14,7 +14,11 @@ export class ConvertUnaryExpression extends ConvertExpression<UnaryExpression> {
 				return `${this.expr.operator}${convertExpressions(this.expr.argument).convert()}`;
 			}
 
-			throw new CannotConvertError('単項の+または-はnumber以外の要素を含むことはできません', this.expr.argument.loc?.start, this.expr.argument.loc?.end);
+			throw new CannotConvertError(
+				'単項の+または-はnumber以外の要素を含むことはできません',
+				this.expr.argument.loc?.start,
+				this.expr.argument.loc?.end
+			);
 		}
 
 		throw new UnsupportedOperatorError(`${this.expr.operator}はサポートされません`, this.expr.loc?.start, this.expr.loc?.end);

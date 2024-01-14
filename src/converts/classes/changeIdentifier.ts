@@ -1,5 +1,5 @@
-import { Expression, Identifier, PrivateIdentifier } from "acorn";
-import { ConvertPrivateIdentifier } from "../others/ConvertPrivateIdentifier";
+import { Expression, PrivateIdentifier } from 'acorn';
+import { ConvertPrivateIdentifier } from '../others/ConvertPrivateIdentifier';
 
 export function changeIfPrivateIdentifier(node: Expression | PrivateIdentifier): Expression {
 	if (node.type !== 'PrivateIdentifier') {
