@@ -129,7 +129,7 @@
 </main>
 
 <footer>
-	<p>AiJs | <a href="https://github.com/slofp/AiJs">github</a></p>
+	<p>AiJs | <a href="https://github.com/slofp/AiJs" target="_blank" rel="noopener noreferrer">github</a></p>
 </footer>
 
 {#if openLoadGist}
