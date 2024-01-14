@@ -85,13 +85,17 @@
 			<p>Description</p>
 			<Input bind:value={description} id="gistDescription" />
 		</div>
-		{#if apiKey.trim().length === 0}
+		{#if apiKey.trim().length === 0 && gistId === undefined}
 			<p class="message">Input the api key.</p>
 		{:else}
 			<div class="buttons">
-				<Button onclick={createGist}>Create</Button>
-				{#if isAiJsProject}
-					<Button onclick={updateGist}>Update</Button>
+				{#if apiKey.trim().length !== 0}
+					<Button onclick={createGist}>Create</Button>
+					{#if isAiJsProject}
+						<Button onclick={updateGist}>Update</Button>
+					{/if}
+				{/if}
+				{#if gistId !== undefined}
 					<Button onclick={share}>Share</Button>
 				{/if}
 			</div>
