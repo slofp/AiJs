@@ -133,7 +133,7 @@
 </footer>
 
 {#if openLoadGist}
-<LoadGist bind:switchShow={openLoadGist} />
+	<LoadGist bind:switchShow={openLoadGist} />
 {/if}
 {#if openSaveGist}
 	<SaveGist bind:switchShow={openSaveGist} gistId={gistId ?? undefined} aijsMeta={{ config: options, jsSource: jsSrc }} resultSource={resultSrc} />
