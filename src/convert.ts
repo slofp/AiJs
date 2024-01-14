@@ -31,6 +31,11 @@ import { ConvertConditionalExpression } from './converts/expressions/ConvertCond
 import { NotImplementError } from './expections/NotImplementError';
 import { INode } from './converts/INode';
 import { ConvertParenthesizedExpression } from './converts/expressions/ConvertParenthesizedExpression';
+import { ConvertUnaryExpression } from './converts/expressions/ConvertUnaryExpression';
+import { ConvertThisExpression } from './converts/expressions/ConvertThisExpression';
+import { ConvertClassDeclaration } from './converts/statements/ConvertClassDeclaration';
+import { ConvertNewExpression } from './converts/expressions/ConvertNewExpression';
+import { ConvertClassExpression } from './converts/expressions/ConvertClassExpression';
 
 export function convertPatterns(pat: Pattern): INode {
 	switch (pat.type) {
@@ -85,6 +90,8 @@ export function convertStatements(state: Statement, isEval = true): INode {
 			return new ConvertContinueStatement(state);
 		case 'ForOfStatement':
 			return new ConvertForOfStatement(state);
+		case 'ClassDeclaration':
+			return new ConvertClassDeclaration(state);
 		default:
 			throw new NotImplementError(`${state.type}は未実装です`, state.loc?.start, state.loc?.end);
 	}
@@ -125,6 +132,14 @@ export function convertExpressions(expr: Expression | PrivateIdentifier, fromSta
 			return new ConvertConditionalExpression(expr);
 		case 'ParenthesizedExpression':
 			return new ConvertParenthesizedExpression(expr);
+		case 'UnaryExpression':
+			return new ConvertUnaryExpression(expr);
+		case 'ThisExpression':
+			return new ConvertThisExpression(expr);
+		case 'NewExpression':
+			return new ConvertNewExpression(expr);
+		case 'ClassExpression':
+			return new ConvertClassExpression(expr);
 		default:
 			throw new NotImplementError(`${expr.type}は未実装です`, expr.loc?.start, expr.loc?.end);
 	}
