@@ -3,6 +3,7 @@ import { ConvertExpression } from './ConvertExpression';
 import { identifierStdName, uiNestIdentifierName } from '../../utils/stdLib';
 import { convertExpressions } from '../../convert';
 import { CannotConvertError } from '../../expections/CannotConvertError';
+import { ConvertPrivateIdentifier } from '../others/ConvertPrivateIdentifier';
 
 export class ConvertMemberExpression extends ConvertExpression<MemberExpression> {
 	private checkStd() {
@@ -20,7 +21,7 @@ export class ConvertMemberExpression extends ConvertExpression<MemberExpression>
 
 	private convertProp() {
 		if (this.expr.property.type === 'PrivateIdentifier') {
-			return this.expr.property.name;
+			return new ConvertPrivateIdentifier(this.expr.property).convert();
 		}
 		else {
 			return convertExpressions(this.expr.property).convert();
