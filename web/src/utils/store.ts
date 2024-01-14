@@ -1,6 +1,6 @@
 import type { ConvertOptions } from '../../../src/type';
 
-type Key = 'aijs:code' | 'aijs:config';
+type Key = 'aijs:code' | 'aijs:config' | 'aijs:gistApi';
 
 const getStore = (key: Key) => {
 	return window.localStorage.getItem(key);
@@ -28,4 +28,12 @@ export function getConfig(): ConvertOptions {
 
 export function setConfig(config: ConvertOptions) {
 	setStore('aijs:config', JSON.stringify(config));
+}
+
+export function getApiKey() {
+	return getStore('aijs:gistApi') ?? '';
+}
+
+export function setApiKey(key: string) {
+	setStore('aijs:gistApi', key);
 }
