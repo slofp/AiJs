@@ -67,7 +67,7 @@
 		</p>
 		<div class="textField">
 			<p>Origin</p>
-			<Input bind:value={origin} id="origin" valid={v => /^[a-zA-Z.]*$/.test(v)} />
+			<Input bind:value={origin} id="origin" valid={(v) => /^[a-zA-Z.]*$/.test(v)} />
 		</div>
 		<div class="install-urls">
 			<p>Plugin install url (if need)</p>
