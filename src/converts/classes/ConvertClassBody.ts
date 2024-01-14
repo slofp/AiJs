@@ -1,15 +1,11 @@
-import { ClassBody, FunctionExpression, MethodDefinition, Node, Pattern, Property } from "acorn";
-import { ConvertClass } from "./ConvertClass";
-import { INode } from "../INode";
-import { UnsupportedClassObjectError } from "../../expections/UnsupportedClassObjectError";
-import { ConvertMethodDefinition } from "./ConvertMethodDefinition";
-import { ConvertPropertyDefinition } from "./ConvertPropertyDefinition";
-import { NotImplementError } from "../../expections/NotImplementError";
-import { ConvertVariableDeclaration } from "../statements/ConvertVariableDeclaration";
-import { ConvertObjectExpression } from "../expressions/ConvertObjectExpression";
-import { IMakeNode } from "./IMakeNode";
-import { CannotConvertError } from "../../expections/CannotConvertError";
-
+import { ClassBody, FunctionExpression, MethodDefinition, Node, Property } from 'acorn';
+import { ConvertClass } from './ConvertClass';
+import { UnsupportedClassObjectError } from '../../expections/UnsupportedClassObjectError';
+import { ConvertMethodDefinition } from './ConvertMethodDefinition';
+import { ConvertPropertyDefinition } from './ConvertPropertyDefinition';
+import { ConvertObjectExpression } from '../expressions/ConvertObjectExpression';
+import { IMakeNode } from './IMakeNode';
+import { CannotConvertError } from '../../expections/CannotConvertError';
 
 export class ConvertClassBody extends ConvertClass<ClassBody> {
 	private methodConstructor?: MethodDefinition;
@@ -52,26 +48,28 @@ export class ConvertClassBody extends ConvertClass<ClassBody> {
 			end: this.classObj.end,
 			loc: this.classObj.loc,
 			kind: 'const',
-			declarations: [{
-				type: 'VariableDeclarator',
-				start: this.classObj.start,
-				end: this.classObj.end,
-				loc: this.classObj.loc,
-				id: {
-					type: 'Identifier',
+			declarations: [
+				{
+					type: 'VariableDeclarator',
 					start: this.classObj.start,
 					end: this.classObj.end,
 					loc: this.classObj.loc,
-					name: 'this',
+					id: {
+						type: 'Identifier',
+						start: this.classObj.start,
+						end: this.classObj.end,
+						loc: this.classObj.loc,
+						name: 'this',
+					},
+					init: {
+						type: 'ObjectExpression',
+						start: this.classObj.start,
+						end: this.classObj.end,
+						loc: this.classObj.loc,
+						properties: instanceProps.map((v) => v.makeProp()),
+					},
 				},
-				init: {
-					type: 'ObjectExpression',
-					start: this.classObj.start,
-					end: this.classObj.end,
-					loc: this.classObj.loc,
-					properties: instanceProps.map((v) => v.makeProp()),
-				},
-			}],
+			],
 		});
 
 		fn.body.body.push({

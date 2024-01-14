@@ -1,4 +1,4 @@
-import type { ConvertOptions } from "../../../src/type";
+import type { ConvertOptions } from '../../../src/type';
 
 type Key = 'aijs:code' | 'aijs:config';
 
@@ -12,7 +12,7 @@ const setStore = (key: Key, value: string) => {
 
 export function getCode() {
 	return getStore('aijs:code') ?? '';
-};
+}
 
 export function setCode(code: string) {
 	setStore('aijs:code', code);
