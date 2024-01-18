@@ -16,20 +16,20 @@
 </script>
 
 <Popup bind:switchShow>
-	<p class="title">Select Gist</p>
+	<p class="title">Gistを選択</p>
 	<div class="apikey">
-		<p>api key</p>
+		<p>apiキー</p>
 		<Password bind:value={apiKey} id="apiPass" />
 	</div>
 	<div class="list">
 		{#if apiKey.trim().length === 0}
-			<p>Input the api key.</p>
+			<p>apiキーを入力してください</p>
 		{:else}
 			{#await gistGetList(apiKey)}
-				<p>Loading...</p>
+				<p>読み込み中...</p>
 			{:then list}
 				{#if list.length === 0}
-					<p>None</p>
+					<p>なし</p>
 				{:else}
 					{#each list as e}
 						<p><a href={`./?gist=${e[0]}`}>{e[0]} - {e[1]}</a></p>

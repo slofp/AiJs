@@ -72,53 +72,57 @@
 </script>
 
 <Popup bind:switchShow>
-	<p class="title">Save Gist</p>
+	<p class="title">Gistに保存</p>
 	{#if showResult}
 		<p class="gistId">
-			{#if isSaved}Saved!<br />{/if}
+			{#if isSaved}保存しました！<br />{/if}
 			GistId: <a href={`./?gist=${gistId}`}>{gistId}</a>
 		</p>
 		<div class="textField">
-			<p>Origin</p>
+			<p>URLオリジン</p>
 			<Input bind:value={origin} id="origin" valid={(v) => /^[a-zA-Z.]*$/.test(v)} />
 		</div>
 		<div class="install-urls">
-			<p>Plugin install url (if need)</p>
+			<p>プラグインインストールなど (必要なら)</p>
 			<div class="buttons">
 				<Button onclick={copyUrl}>
 					{#if copiedFlag}
-					Copied!
+					コピーしました！
 					{:else}
-					Copy install URL
+						インストールURLを<br />
+						コピー
 					{/if}
 				</Button>
-				<Button onclick={shareHub}>Share misskey-hub</Button>
+				<Button onclick={shareHub}>
+					misskey-hubで<br />
+					共有
+				</Button>
 			</div>
 		</div>
 	{:else}
 		{#if isAiJsProject}
-			<p class="gistId">Current gistId: <a href={`./?gist=${gistId}`}>{gistId}</a></p>
+			<p class="gistId">現在のGistId: <a href={`./?gist=${gistId}`}>{gistId}</a></p>
 		{/if}
 		<div class="textField">
-			<p>api key</p>
+			<p>apiキー</p>
 			<Password bind:value={apiKey} id="apiPass" />
 		</div>
 		<div class="textField">
-			<p>Description</p>
+			<p>説明</p>
 			<Input bind:value={description} id="gistDescription" />
 		</div>
 		{#if apiKey.trim().length === 0 && gistId === undefined}
-			<p class="message">Input the api key.</p>
+			<p class="message">apiキーを入力してください</p>
 		{:else}
 			<div class="buttons">
 				{#if apiKey.trim().length !== 0}
-					<Button onclick={createGist}>Create</Button>
+					<Button onclick={createGist}>新規作成</Button>
 					{#if isAiJsProject}
-						<Button onclick={updateGist}>Update</Button>
+						<Button onclick={updateGist}>上書き</Button>
 					{/if}
 				{/if}
 				{#if gistId !== undefined}
-					<Button onclick={share}>Share</Button>
+					<Button onclick={share}>共有</Button>
 				{/if}
 			</div>
 		{/if}

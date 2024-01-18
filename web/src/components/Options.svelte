@@ -104,36 +104,36 @@
 <div class="editor-root">
 	<div class="switch-container">
 		<Switch id="minify" bind:checked={options.minify} />
-		<h3>Minify</h3>
+		<h3>コード圧縮</h3>
 	</div>
 	<div class="switch-container">
 		<Switch id="isv" bind:checked={options.insertVersion} />
-		<h3>Insert script version</h3>
+		<h3>aiバーションを挿入</h3>
 	</div>
 	<div class="switch-container">
 		<Switch id="imd" bind:checked={insertMeta} />
-		<h3>Insert Metadata</h3>
+		<h3>メタデータを挿入</h3>
 	</div>
 	{#if insertMeta}
 		<div>
 			<div>
-				<h3>Name</h3>
+				<h3>名前</h3>
 				<Input id="name" bind:value={meta.name} />
 			</div>
 			<div>
-				<h3>Author</h3>
+				<h3>作成者</h3>
 				<Input id="author" bind:value={meta.author} />
 			</div>
 			<div>
-				<h3>Version</h3>
+				<h3>バージョン</h3>
 				<Input id="version" bind:value={meta.version} />
 			</div>
 			<div>
-				<h3>Description</h3>
+				<h3>説明</h3>
 				<Input id="description" bind:value={meta.description} />
 			</div>
 			<div>
-				<h3>Permission</h3>
+				<h3>権限</h3>
 				{#each permissionsList as v}
 					<div class="switch-container meta-switch">
 						<Switch id={v} bind:checked={metaPermissions[v]} />
@@ -142,8 +142,8 @@
 				{/each}
 			</div>
 			<div>
-				<h3>Config</h3>
-				<Button onclick={addConfig}>Add</Button>
+				<h3>コンフィグ</h3>
+				<Button onclick={addConfig}>追加</Button>
 				{#each configProps as v, i}
 					<ConfigPart bind:value={v} on:remove={() => removeConfig(i)} />
 				{/each}
