@@ -35,6 +35,7 @@
 			fontSize: 15,
 			insertSpaces: false,
 			tabSize: 4,
+			suggest: { showWords: false },
 		});
 		editor.onKeyUp((e) => {
 			if (e.keyCode === monaco.KeyCode.Quote) {
