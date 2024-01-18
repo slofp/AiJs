@@ -22,6 +22,7 @@
 			target: monaco.languages.typescript.ScriptTarget.ESNext,
 			checkJs: true,
 			allowNonTsExtensions: true,
+			noImplicitAny: false,
 		});
 
 		monaco.languages.typescript.typescriptDefaults.addExtraLib(aitsLibSource, 'aitslib.d.ts');
