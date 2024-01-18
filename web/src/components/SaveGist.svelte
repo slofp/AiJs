@@ -6,6 +6,7 @@
 	import Button from './Button.svelte';
 	import { getApiKey, setApiKey } from '../utils/store';
 	import { gistCreate, gistUpdate, getInstallUrlNonOrigin, gistGetJson, isAiJsProjectGist, type AijsMeta, getResultSrc } from '../utils/gist';
+	import { createShareUrl } from '../utils/misskeyHubShare';
 
 	export let gistId: string | undefined = undefined;
 	export let aijsMeta: AijsMeta;
@@ -44,6 +45,18 @@
 		uri = await getInstallUrlNonOrigin(username, gistId!, src);
 		showResult = true;
 	};
+	let copiedFlag = false;
+	const copyUrl = async () => {
+		if (navigator.clipboard) {
+			await navigator.clipboard.writeText(`https://${origin}${uri}`);
+			copiedFlag = true;
+			await new Promise((r) => setTimeout(r, 1000));
+			copiedFlag = false;
+		}
+	};
+	const shareHub = () => {
+		window.open(createShareUrl(description, `https://${origin}${uri}`, `${location.origin}/?gist=${gistId}`, origin), '_blank', 'noreferrer');
+	};
 
 	onMount(async () => {
 		if (gistId !== undefined) {
@@ -71,7 +84,16 @@
 		</div>
 		<div class="install-urls">
 			<p>Plugin install url (if need)</p>
-			<p><a href={`https://${origin}${uri}`} target="_blank" rel="noopener noreferrer">{`https://${origin}${uri}`}</a></p>
+			<div class="buttons">
+				<Button onclick={copyUrl}>
+					{#if copiedFlag}
+					Copied!
+					{:else}
+					Copy install URL
+					{/if}
+				</Button>
+				<Button onclick={shareHub}>Share misskey-hub</Button>
+			</div>
 		</div>
 	{:else}
 		{#if isAiJsProject}
