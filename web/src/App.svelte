@@ -99,23 +99,23 @@
 		<h1>JavaScript to AiScript Converter (ai.js v{VERSION})</h1>
 	</div>
 	<div>
-		<Button onclick={() => (openSaveGist = !openSaveGist)}>SaveGist</Button>
-		<Button onclick={() => (openLoadGist = !openLoadGist)}>LoadGist</Button>
-		<Button onclick={() => (openOptions = !openOptions)}>Options</Button>
+		<Button onclick={() => (openSaveGist = !openSaveGist)}>Gistに保存</Button>
+		<Button onclick={() => (openLoadGist = !openLoadGist)}>Gistから読込</Button>
+		<Button onclick={() => (openOptions = !openOptions)}>オプション</Button>
 	</div>
 </header>
 
 <main>
 	<div class="size">
-		<h2>Javascript Code</h2>
+		<h2>Javascript コード</h2>
 		<Editor changefunc={changeSrcFunc} src={prevCode} />
 	</div>
 	<div class="size">
 		{#if openOptions}
-			<h2>Options</h2>
+			<h2>オプション</h2>
 			<Options bind:options />
 		{:else}
-			<h2>AiScript Result</h2>
+			<h2>AiScript 結果</h2>
 			<div class="editor-root">
 				<Result bind:src={resultSrc} />
 				{#if errored}
@@ -194,6 +194,7 @@
 		background-color: rgb(218, 73, 73);
 		color: #fff;
 		padding: 15px;
+		z-index: 999;
 	}
 	.error-container p {
 		font-weight: bold;

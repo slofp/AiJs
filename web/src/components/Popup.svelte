@@ -36,6 +36,7 @@
 		background-color: hsla(0, 0%, 0%, 0.3);
 		display: flex;
 		align-items: center;
+		z-index: 9999999;
 	}
 
 	.popup-window {

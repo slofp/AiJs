@@ -13,22 +13,24 @@
     "@sveltejs/vite-plugin-svelte": "3.0.0",
     "@tsconfig/svelte": "5.0.2",
     "eslint-plugin-svelte": "2.35.1",
+    "monaco-vscode-textmate-theme-converter": "0.1.7",
     "prettier-plugin-svelte": "3.1.2",
     "svelte": "4.2.3",
     "svelte-check": "3.6.0",
     "tslib": "2.6.2",
     "typescript": "5.2.2",
-    "vite": "5.0.0"
+    "vite": "5.0.0",
+    "vite-plugin-monaco-editor": "1.1.0"
   },
   "dependencies": {
-    "@codemirror/autocomplete": "6.11.1",
-    "@codemirror/lang-javascript": "6.2.1",
-    "@codemirror/language": "6.9.3",
-    "@codemirror/view": "6.22.2",
-    "@octokit/rest": "^20.0.2",
+    "@octokit/rest": "20.0.2",
     "@slofp/aijs": "link:..",
-    "@uiw/codemirror-theme-vscode": "4.21.21",
+    "monaco-editor": "0.45.0",
+    "monaco-editor-nls": "3.1.0",
+    "monaco-editor-textmate": "4.0.0",
+    "monaco-textmate": "3.0.1",
+    "onigasm": "2.2.5",
     "ress": "5.0.2",
-    "svelte-codemirror-editor": "1.2.0"
+    "vite-plugin-monaco-editor-nls": "2.0.2"
   }
 }

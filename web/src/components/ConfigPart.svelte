@@ -45,19 +45,19 @@
 
 <div class="root">
 	<div>
-		<h3>Name</h3>
+		<h3>名前</h3>
 		<Input id={generateId()} bind:value={value.configName} />
 	</div>
 	<div>
-		<h3>Type</h3>
+		<h3>型</h3>
 		<Radio {radioList} bind:value={value.type} />
 	</div>
 	<div>
-		<h3>Label</h3>
+		<h3>ラベル</h3>
 		<Input id={generateId()} bind:value={value.label} />
 	</div>
 	<div>
-		<h3>Description</h3>
+		<h3>説明</h3>
 		<Input id={generateId()} bind:value={value.description} />
 	</div>
 	<div>
