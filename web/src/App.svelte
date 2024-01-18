@@ -194,6 +194,7 @@
 		background-color: rgb(218, 73, 73);
 		color: #fff;
 		padding: 15px;
+		z-index: 999;
 	}
 	.error-container p {
 		font-weight: bold;
