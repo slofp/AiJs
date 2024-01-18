@@ -1,4 +1,4 @@
-const stdLib = ['Core', 'Util', 'Json', 'Date', 'Math', 'Num', 'Str', 'Obj', 'Error', 'Async', 'Mk', 'Ui'];
+const stdLib = ['Core', 'Util', 'Json', 'Date', 'Math', 'Num', 'Str', 'Obj', 'Error', 'Async', 'Mk', 'Ui', 'Plugin'];
 
 const ui = ['C'];
 
