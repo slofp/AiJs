@@ -18,7 +18,6 @@ export default defineConfig({
 				'editorWorkerService',
 				'typescript',
 			],
-			publicPath: "AiJs/monacoeditorwork",
 		}),
 	],
 	define: {
