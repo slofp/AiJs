@@ -48,6 +48,10 @@ jobs:
           IS_GITHUB_ACTION: true
         run: pnpm build
 
+      - name: move worker
+        working-directory: web
+        run: mv ./dist/AiJs/monacoeditorwork ./dist/monacoeditorwork && rmdir ./dist/AiJs
+
       - name: Upload dist
         uses: actions/upload-pages-artifact@v1
         with:
