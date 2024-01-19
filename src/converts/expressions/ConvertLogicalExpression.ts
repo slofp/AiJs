@@ -8,7 +8,7 @@ const unsupportLogicalOperator: LogicalExpression['operator'][] = ['??'] as cons
 
 export class ConvertLogicalExpression extends ConvertExpression<LogicalExpression> {
 	public constructor(expr: LogicalExpression) {
-		if (!unsupportLogicalOperator.some((v) => v === expr.operator)) {
+		if (unsupportLogicalOperator.some((v) => v === expr.operator)) {
 			throw new CannotConvertError('使用できない演算子があります', expr.loc?.start, expr.loc?.end);
 		}
 
