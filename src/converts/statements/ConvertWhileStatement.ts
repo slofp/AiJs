@@ -8,7 +8,7 @@ export class ConvertWhileStatement extends ConvertStatement<WhileStatement> {
 		let result = `loop${optionalWhiteSpace()}{${optionalNewLine()}`;
 		const loopState = [];
 		if (!isPure) {
-			loopState.push(`if (${test}) break`);
+			loopState.push(`if (!(${test})) break`);
 		}
 		loopState.push(body);
 		return result + nestIndents(loopState.join('\n')) + `${optionalNewLine()}}`;

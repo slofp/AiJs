@@ -9,7 +9,7 @@ export class ConvertDoWhileStatement extends ConvertStatement<DoWhileStatement> 
 		const loopState = [];
 		loopState.push(body);
 		if (!isPure) {
-			loopState.push(`if (${test}) break`);
+			loopState.push(`if (!(${test})) break`);
 		}
 		return result + nestIndents(loopState.join('\n')) + `${optionalNewLine()}}`;
 	}
