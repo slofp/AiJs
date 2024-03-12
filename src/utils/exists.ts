@@ -82,10 +82,11 @@ function existsExpressionVariable(expr: Expression | PrivateIdentifier, name: st
 			return expr.argument ? existsExpressionVariable(expr.argument, name) : false;
 		case 'ParenthesizedExpression':
 			return existsExpressionVariable(expr.expression, name);
+		case 'NewExpression':
+			return expr.arguments.some((v) => (v.type !== 'SpreadElement' ? existsExpressionVariable(v, name) : false));
 		case 'ImportExpression':
 		case 'Literal':
 		case 'MetaProperty':
-		case 'NewExpression':
 		case 'TaggedTemplateExpression':
 		case 'ThisExpression':
 			return false;

@@ -34,7 +34,9 @@ export class ConvertConditionalExpression extends ConvertExpression<ConditionalE
 		const test = convertExpressions(this.expr.test);
 		const then = convertExpressions(this.expr.consequent);
 		const isElif = this.expr.alternate.type === 'ConditionalExpression';
-		const alter = isElif ? new ConvertConditionalExpression(this.expr.alternate as ConditionalExpression) : convertExpressions(this.expr.alternate);
+		const alter = isElif
+			? new ConvertConditionalExpression(this.expr.alternate as ConditionalExpression, true)
+			: convertExpressions(this.expr.alternate);
 
 		return this.toAiScript(test.convert(), then.convert(), alter.convert(), !isElif);
 	}
