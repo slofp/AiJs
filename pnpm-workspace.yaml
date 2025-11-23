@@ -1,4 +1,8 @@
 packages:
-  - './'
-  - './web'
-  - './test'
+  - ./
+  - ./web
+  - ./test
+
+onlyBuiltDependencies:
+  - esbuild
+  - svelte-preprocess
