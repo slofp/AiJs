@@ -6,8 +6,8 @@ export abstract class ConvertClass<T extends ClassBody | MethodDefinition | Prop
 	constructor(protected classObj: T) {}
 
 	protected assertNewId(id: Expression | PrivateIdentifier): void {
-		if (id.type === 'Identifier' && id.name === 'new') {
-			throw new CannotConvertError('フィールドまたはメソッド名にnewをつけることはできません', id.loc?.start, id.loc?.end);
+		if (id.type === 'Identifier' && id.name === '__new__') {
+			throw new CannotConvertError('フィールドまたはメソッド名に__new__をつけることはできません', id.loc?.start, id.loc?.end);
 		}
 	}
 
