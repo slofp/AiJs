@@ -15,7 +15,7 @@ export class ConvertNewExpression extends ConvertExpression<NewExpression> {
 				property: {
 					...this.expr.callee,
 					type: 'Identifier',
-					name: 'new',
+					name: '__new__',
 				},
 				computed: false,
 				optional: false,

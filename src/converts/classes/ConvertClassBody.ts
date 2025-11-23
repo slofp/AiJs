@@ -59,7 +59,7 @@ export class ConvertClassBody extends ConvertClass<ClassBody> {
 						start: this.classObj.start,
 						end: this.classObj.end,
 						loc: this.classObj.loc,
-						name: 'this',
+						name: 'self',
 					},
 					init: {
 						type: 'ObjectExpression',
@@ -82,7 +82,7 @@ export class ConvertClassBody extends ConvertClass<ClassBody> {
 				start: this.classObj.start,
 				end: this.classObj.end,
 				loc: this.classObj.loc,
-				name: 'this',
+				name: 'self',
 			},
 		});
 
@@ -100,7 +100,7 @@ export class ConvertClassBody extends ConvertClass<ClassBody> {
 				start,
 				end,
 				loc: locale,
-				name: 'new',
+				name: '__new__',
 			},
 			value: fn,
 		};
