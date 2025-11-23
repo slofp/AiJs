@@ -71,6 +71,7 @@
 	let openOptions = false;
 	let openLoadGist = false;
 	let openSaveGist = false;
+	let loadedJsCode = false;
 
 	onMount(async () => {
 		if (gistId === null) {
@@ -78,6 +79,7 @@
 			jsSrc = prevCode;
 			options = storedOptions;
 			//updateResult(jsSrc, options);
+			loadedJsCode = true;
 			return;
 		}
 
@@ -86,6 +88,7 @@
 			prevCode = meta.jsSource;
 			jsSrc = prevCode;
 			options = meta.config;
+			loadedJsCode = true;
 		} catch (error) {
 			console.error(error);
 		}
@@ -108,7 +111,9 @@
 <main>
 	<div class="size">
 		<h2>Javascript コード</h2>
-		<Editor changefunc={changeSrcFunc} src={prevCode} />
+		{#if loadedJsCode}
+			<Editor changefunc={changeSrcFunc} src={prevCode} />
+		{/if}
 	</div>
 	<div class="size">
 		{#if openOptions}
